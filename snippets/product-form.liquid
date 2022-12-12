@@ -1,0 +1,23 @@
+{%- assign types_to_check = "accesorios,servicio,recetas,paquetes,eventos,untables,higiene personal,pan y tortillas" | split:"," -%}
+{%- assign product_type = product.type | downcase -%}
+{%- assign available = product.available -%}
+
+{% if product.tags contains 'xgramaje' %}
+  <form class="collection-product-form">
+    <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+    <select name="quantity">
+      <option value="100">100 grs.</option>
+      <option value="250">250 grs.</option>
+      <option value="500">500 grs.</option>
+      <option value="750">750 grs.</option>
+      <option value="1000">1000 grs.</option>
+    </select>
+    <input type="submit" value="Agregar al carrito" {% unless available %}disabled="disabled" {% endunless %}class="btn" />
+  </form>
+{% else %}
+  <form class="collection-product-form">
+    <input type="submit" value="Agregar al carrito" class="btn" />
+    <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+    <input type="hidden" name="quantity" value="1"/>    
+  </form>  
+{% endif %}

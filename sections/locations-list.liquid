@@ -1,0 +1,459 @@
+   <div class="page-width">
+  <div class="grid">
+    <div id="formBranches">
+      <div class="grid__item medium-up--one-third form-group">
+        <label for="sucursal" class="text-red">Nombre o dirección:</label>
+        <input type="text" class="search form-control" id="sucursal" name="sucursal" value="">
+      </div>   
+      {% capture states_list %}
+        {% for block in section.blocks %}
+          {{- block.settings.state -}}
+          {% if forloop.last == false %},{% endif%}
+        {% endfor %}
+      {% endcapture %}
+      {% assign states_aray = states_list | split: ',' | uniq %}
+      <div class="grid__item medium-up--one-third form-group">
+        <label for="estado" class="text-red">Estado:</label>
+        <select class="state form-control" name="estado" id="estado">
+          <option value="" selected>Elige un estado</option>
+          {% for state in states_aray %}
+            <option value="{{ state | strip }}">{{ state | strip }}</option>
+          {% endfor %}
+          {% comment %} <option value="CDMX">CDMX</option>
+          <option value="Méx.">Estado de México</option>
+          <option value="Querétaro">Querétaro</option>
+          <option value="Puebla">Puebla</option> {% endcomment %}
+        </select>        
+      </div>
+      {% comment %} <div class="grid__item medium-up--one-third form-group">
+        <label for="zona" class="text-red">Zona:</label>
+        <input type="text" class="search form-control" id="zona" name="zona" value="">
+      </div> {% endcomment %}
+    </div>
+  </div>
+  
+  <div id="branches-map" class="grid">
+    <div class="grid__item one-whole">
+      <div id="map-canvas" style="height: 400px;"></div>
+    </div>
+
+    <noscript><b>JavaScript must be enabled in order for you to use Google Maps.</b>
+    However, it seems JavaScript is either disabled or not supported by your browser.
+    To view Google Maps, enable JavaScript by changing your browser options, and then
+    try again.
+    </noscript>
+  </div>
+  
+  <div class="location-line grid visible medium-up--hidden">
+    <div class="grid__item one-whole">
+      <h3>Sucursales</h3>
+    </div>
+  </div>
+  
+  <div class='location-line grid hidden medium-up--visible'>
+    <div class='grid__item one-third'>
+      <h3>Sucursal</h3>
+    </div>
+    <div class='grid__item two-thirds'>
+      <h3>Dirección</h3>
+    </div>  
+  </div>
+  
+  <ul class="locations-list list"> 
+
+    {% for block in section.blocks %}
+      <li class='grid downP location-row'>
+        <div class='grid__item medium-up--one-third'>
+          <h4 class='text-red name'>{{ block.settings.title }}</h4>
+          {% if block.settings.is_soon %}<p>PRÓXIMAMENTE</p>{% endif %}
+          <p>Tel: <a class="tel" href ='tel:{{ block.settings.tel }}'>{{ block.settings.tel }}</a></p>
+        </div>
+        <div class='grid__item medium-up--two-thirds'>       
+          <p class="address">{{ block.settings.address }}, {{ block.settings.state }}</p>
+          <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990"> {{ block.settings.parking }}</p>
+          <h3>Horarios</h3>
+          <div class="schedule" style="white-space: pre-line">{{ block.settings.schedule }}</div>          
+        </div>
+        <div class="location hidden" data-lat="{{ block.settings.lat }}" data-lng="{{ block.settings.lng }}" data-label="{{ block.settings.popup_title }}" data-tel="{{ block.settings.tel }}" data-address="{{ block.settings.address }}, {{ block.settings.state }}"></div>
+      </li>
+    {% endfor %}
+    
+    {% comment %} <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>Roma</h4>
+        <p>Tel: <a class="tel" href ='tel:5592227429'>(55) 9222 7429</a></p>
+      </div>
+      <div class='grid__item medium-up--two-thirds'>       
+        <p class="address">Sinaloa 61D, Roma Nte., Cuauhtémoc, 06700 Ciudad de México, CDMX</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990"> Parquímetro</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 09:30 a 20:30</p>
+        <p class="schedule">Sábados y Domingos de 11:00 a 20:00</p>
+      </div>
+      <div class="location hidden" data-lat="19.421076" data-lng="-99.166484" data-label="Sucursal Roma" data-tel="+525592227429" data-address="Sinaloa 61D, Roma Nte., Cuauhtémoc, 06700 Ciudad de México, CDMX"></div>
+    </li> {% endcomment %}
+    
+    {% comment %} <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>Polanco</h4>
+        <p>Tel: <a class="tel" href ='tel:5592227436'>(55) 9222 7436</a></p>
+      </div>
+      <div class='grid__item medium-up--two-thirds'>       
+        <p class="address">Av. Isaac Newton 133, Polanco, Polanco V Secc, Miguel Hidalgo, 11560 Ciudad de México, CDMX</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990"> Parquímetro</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 09:30 a 20:30</p>
+        <p class="schedule">Sábados y Domingos de 11:00 a 20:00</p>
+      </div>
+      <div class="location hidden" data-lat="19.432971" data-lng="-99.189237" data-label="Sucursal Polanco" data-tel="+525592227436" data-address="Av. Isaac Newton 133, Polanco, Polanco V Secc, Miguel Hidalgo, 11560 Ciudad de México, CDMX"></div>
+    </li>
+   
+    <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>San Jerónimo</h4>
+        <p>Tel: <a class="tel" href ='tel:5592228553'>(55) 9222 8553</a></p>
+      </div>
+      <div class='grid__item medium-up--two-thirds'>       
+        <p class="address">Av. San Jerónimo 915, San Jerónimo Lídice, La Magdalena Contreras, 10200 Ciudad de México, CDMX</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990"> Dos lugares de estacionamiento</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 09:30 a 20:30</p>
+        <p class="schedule">Sábados y Domingos de 11:00 a 20:00</p>
+      </div>
+      <div class="location hidden" data-lat="19.32836" data-lng="-99.218405" data-label="Sucursal San Jerónimo" data-tel="+525592228553" data-address="Av. San Jerónimo 915, San Jerónimo Lídice, La Magdalena Contreras, 10200 Ciudad de México, CDMX"></div>
+    </li>
+    
+    <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>Del Valle Sur</h4>
+        <p>Tel: <a class="tel" href ='tel:5592236432'>(55) 9223 6432</a></p>
+      </div>
+      <div class='grid__item medium-up--two-thirds'>       
+        <p class="address">Av. Coyoacán 1523, Col del Valle Centro, Benito Juárez, 03100 Ciudad de México, CDMX</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990"> Dos lugares de estacionamiento</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 09:30 a 20:30</p>
+        <p class="schedule">Sábados y Domingos de 11:00 a 20:00</p>
+      </div>
+      <div class="location hidden" data-lat="19.368801" data-lng="-99.171803" data-label="Sucursal Del Valle Sur" data-tel="+525592236432" data-address="Av. Coyoacán 1523, Col del Valle Centro, Benito Juárez, 03100 Ciudad de México, CDMX"></div>
+    </li>
+    
+    <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>Satélite</h4>
+        <p>Tel: <a class="tel" href ='tel:5592231237'>(55) 9223 1237</a></p>
+      </div>
+      <div class='grid__item medium-up--two-thirds'>       
+        <p class="address">Cto. Medicos 16, Cd. Satélite, 53100 Naucalpan de Juárez, Méx.</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990"> Estacionamiento en misma calle disponible sin parquimetro</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 09:30 a 20:30pm</p>
+        <p class="schedule">Sábados y Domingos de 11:00 a 20:00</p>
+      </div>
+      <div class="location hidden" data-lat="19.506436" data-lng="-99.233418" data-label="Sucursal Satélite" data-tel="+525585967686" data-address="Cto. Medicos 16, Cd. Satélite, 53100 Naucalpan de Juárez, Méx."></div>
+    </li>
+    
+    <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>Prado Norte</h4>
+        <p>Tel: <a class="tel" href ='tel:5562682218'>(55) 62 68 22 18</a></p>
+      </div>
+      <div class='grid__item medium-up--two-thirds'>       
+        <p class="address">Avenida Prado Norte 429, Lomas - Virreyes, Lomas de Chapultepec, Miguel Hidalgo, 11000 Ciudad de México, CDMX</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990"> Parquímetro</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 09:30 a 20:30</p>
+        <p class="schedule">Sábados y Domingos de 11:00 a 20:00</p>
+      </div>
+      <div class="location hidden" data-lat="19.427528" data-lng="-99.211171" data-label="Sucursal Prado Norte" data-tel="+525562682218" data-address="Avenida Prado Norte 429, Lomas - Virreyes, Lomas de Chapultepec, Miguel Hidalgo, 11000 Ciudad de México, CDMX"></div>
+    </li>
+    
+    <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>Patio Santa Fe</h4>
+        <p>Tel: <a class="tel" href ='tel:5588706079'>(55) 88 70 60 79</a></p>
+      </div>
+      <div class='grid__item medium-up--two-thirds'>       
+        <p class="address">Vasco de Quiroga 200-400, Santa Fe, Zedec Sta Fé, Álvaro Obregón, 01219 Ciudad de México, CDMX</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990"> Estacionamiento dentro de la plaza</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 10:00 a 20:30</p>
+        <p class="schedule">Sábados y Domingos de 10:30 a 20:30</p>
+      </div>
+      <div class="location hidden" data-lat="19.377405" data-lng="-99.254551" data-label="Sucursal Patio Santa Fe" data-tel="+525588706079" data-address="Vasco de Quiroga 200-400, Santa Fe, Zedec Sta Fé, Álvaro Obregón, 01219 Ciudad de México, CDMX"></div>
+    </li>
+   
+    <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>Interlomas</h4>
+        <p>Tel: <a class="tel" href ='tel:5518576222'>(55) 18 57 62 22</a></p>
+      </div>
+      <div class='grid__item medium-up--two-thirds'>       
+        <p class="address">Avenida Jesús del Monte No.271, Jesus del Monte, 52764 Méx.</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990"> Estacionamiento dentro de la plaza</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 09:30 a 20:30</p>
+        <p class="schedule">Sábados y Domingos de 10:00 a 19:00</p>
+      </div>
+      <div class="location hidden" data-lat="19.388889" data-lng="-99.293484" data-label="Sucursal Interlomas" data-tel="+525518576222" data-address="Avenida Jesús del Monte No.271, Jesus del Monte, 52764 Méx."></div>
+    </li>
+    
+    <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>Miguel Angel de Quevedo</h4>
+        <p>Tel: <a class="tel" href='tel:5589176266'>(55) 8917 6266</a></p>
+        <!--<p>PRÓXIMANMENTE</p>-->
+      </div>
+      <div class='grid__item medium-up--two-thirds'>       
+        <p class="address">Av. Miguel Angel de Quevedo 109 Álvaro Obregón, 01070 Ciudad de México, CDMX</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990"> Estacionamiento dentro de la plaza</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 09:30 a 20:30</p>
+        <p class="schedule">Sábados y Domingos de 11:00 a 20:00</p>
+      </div>
+      <div class="location hidden" data-lat="19.3473321" data-lng="-99.1850136" data-label="Miguel Angel de Quevedo" data-tel="+525589176266" data-address="Av. Miguel Angel de Quevedo 109 Álvaro Obregón, 01070 Cuidad de México, CDMX"></div>
+    </li>
+    
+    <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>Condesa</h4>
+        <p>Tel: <a class="tel" href='tel:5575997941'>(55) 7599 7941</a></p>
+      </div>
+      <div class='grid__item medium-up--two-thirds'>       
+        <p class="address">Vicente Suárez 85 loc A-B, Condesa, Cuauhtémoc, 06140 CDMX</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990"> Estacionamiento en misma calle disponible sin parquimetro</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 09:30am a 20:30pm</p>
+        <p class="schedule">Sábados y Domingos de 11:00 a 20:00</p>
+      </div>
+      <div class="location hidden" data-lat="19.412716023965356" data-lng="-99.17713988832027" data-label="Miguel Angel de Quevedo" data-tel="+525589176266" data-address="Av. Miguel Angel de Quevedo 109 Álvaro Obregón, 01070 Cuidad de México, CDMX"></div>
+    </li>
+    
+    <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>Narvarte</h4>
+        <p>Tel: <a class="tel" href='tel:5575759282'>(55) 7575 9282</a></p>
+        <!--<p>PRÓXIMAMENTE</p>-->
+      </div>
+      <div class='grid__item medium-up--two-thirds'>       
+        <p class="address">Cumbres de Maltrata 202, Narvarte Poniente, Benito Juarez, 03020 CDMX</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990"> Estacionamiento en misma calle disponible sin parquimetro</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 09:30 a 20:30</p>
+        <p class="schedule">Sábados y Domingos de 11:00 a 20:00</p>
+      </div>
+      <div class="location hidden" data-lat="19.394846" data-lng="-99.154361" data-label="Narvarte" data-tel="+525575759282" data-address="Cumbres de Maltrata 202, Narvarte Poniente, Benito Juarez, 03020 CDMX"></div>
+    </li>
+    
+    <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>Hamburgo</h4>
+        <!<p><p>Tel: <a class="tel" href='tel:5589390879'> (55) 8939 0879</a></p></p>
+        <!--<p>PRÓXIMAMENTE</p-->
+      </div>
+      <div class='grid__item medium-up--two-thirds'>       
+        <p class="address">Hamburgo 238, Juárez, Cuauhtemoc, 06600 CDMX</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990"> Parquímetro</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 09:30 a 20:30</p>
+        <p class="schedule">Sábados y Domingos de 10:00 a 19:00</p>
+      </div>
+      <div class="location hidden" data-lat="19.423658" data-lng="-99.1719679" data-label="Hamburgo" data-tel="+525589390879" data-address="Hamburgo 238, Juarez, Cuauhtemoc, 06600 CDMX"></div>
+    </li>
+    
+    <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>Pabellón Bosques</h4>
+        <!<p><p>Tel: <a class="tel" href='tel:5515638419'>(55) 1563 8419</a></p></p>
+        <!--<p>PRÓXIMAMENTE</p-->
+      </div>
+      <div class='grid__item medium-up--two-thirds'>       
+        <p class="address">Prol. Bosques de Reforma 1813, Cuajimalpa, Lomas de Vista Hermosa, 05100 CDMX</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990"> Estacionamiento dentro de la plaza</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 8:30 a 20:00</p>
+        <p class="schedule">Sábados y Domingos de 09:30 a 17:00</p>
+      </div>
+      <div class="location hidden" data-lat="19.383004" data-lng="-99.268093" data-label="Pabellón Bosques" data-tel="+525515638419" data-address="Prol. Bosques de Reforma 1813, Cuajimalpa, Lomas de Vista Hermosa, 05100 CDMX"></div>
+    </li>
+
+    <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>Desierto de los Leones</h4>
+        <!<p><p>Tel: <a class="tel" href='tel:5590283732'>(55) 9028 3732</a></p></p>
+      </div>
+      <div class='grid__item medium-up--two-thirds'>       
+        <p class="address">Calz. Desierto de los Leones 5383, Alcantarilla, Alvaro Obregón, 01729 CDMX</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990"> Cuatro lugares de estacionamiento</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 09:30 a 20:30</p>
+        <p class="schedule">Sábados y Domingos de 11:00 a 20:00</p>
+      </div>
+      <div class="location hidden" data-lat="19.2955079" data-lng="-99.1323588" data-label="Desierto de los Leones" data-tel="+525590283732" data-address="Calz. Desierto de los Leones 5383, Alcantarilla, Alvaro Obregón, 01729 CDMX"></div>
+    </li>
+
+    <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>Acoxpa - Coapa</h4>
+        <p>Tel: <a class="tel" href='tel:5590116975'> (55) 9011 6975</a></p>
+      </div>
+      <div class='grid__item medium-up--two-thirds'>       
+        <p class="address">Calz Acoxpa 543, Coapa, Prados Coapa 3ra Secc, Tlalpan, 14357 Ciudad de México, CDMX</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990"> Dos lugares de estacionamiento</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 09:30 a 20:30</p>
+        <p class="schedule">Sábados y Domingos de 11:00 a 20:00</p>
+      </div>
+      <div class="location hidden" data-lat="19.2954499" data-lng="-99.1324337" data-label="Acoxpa - Coapa" data-tel="+525590116975" data-address="Calz Acoxpa 543, Coapa, Prados Coapa 3ra Secc, Tlalpan, 14357 Ciudad de México, CDMX"></div>
+    </li>
+
+    <li class='grid downP location-row'>  
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>Nápoles</h4>
+        <p>Tel: <a class="tel" href='tel:5590794414'> (55) 9079 4414</a></p>
+      </div>
+      <div class='grid__item medium-up--two-thirds'>       
+        <p class="address"> Filadelfia 182, Nápoles, Benito Juárez, 03810 Ciudad de México, CDMX.</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990"> Parquímetro</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 09:30 a 20:30</p>
+        <p class="schedule">Sábados y Domingos de 11:00 a 20:00</p>
+      </div>
+      <div class="location hidden" data-lat="19.394374" data-lng="-99.179718" data-label="Nápoles" data-tel="+525590794414" data-address="Filadelfia 182, Nápoles, Benito Juárez, 03810 Ciudad de México"></div>
+	  </li>
+
+    <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>La Cúspide</h4>
+       <!--p>PRÓXIMAMENTE</p-->
+        <p>Tel: <a class="tel" href='tel:5590652006'> (55) 9065 2006</a></p>
+      </div>
+       <div class='grid__item medium-up--two-thirds'>       
+        <p class="address"> Avenida Lomas Verdes 1200, La Cuspide, 53126 Naucalpan de Juárez, Méx.</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990">Estacionamiento dentro de la plaza</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 11:00 a 20:30</p>
+        <p class="schedule">Sábados y Domingos de 11:00 a 20:00</p>
+      </div>
+      <div class="location hidden" data-lat="19.5142486" data-lng="-99.2721348" data-label="La Cúspide" data-address="Avenida Lomas Verdes 1200, La Cuspide, 53126 Naucalpan de Juárez, Méx."></div>
+ 	</li>
+
+    <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>Lomas de Angelópolis, Puebla</h4>
+        <p>Tel: <a class="tel" href='tel:222964097'>(222) 296 4097</a></p>
+      </div>
+       <div class='grid__item medium-up--two-thirds'>       
+        <p class="address"> Avenida del Castillo 5511, Santa María Tonantzintla, San Andrés Cholula, 72830, Puebla</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990">Estacionamiento dentro de la plaza</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 09:30 a 20:30</p>
+        <p class="schedule">Sábados y Domingos de 11:00 a 20:00</p>
+      </div>
+      <div class="location hidden" data-lat="19.0030747" data-lng="-98.2672776" data-label="Lomas de Angelópolis" data-address="Avenida del Castillo 5511, Santa María Tonantzintla, San Andrés Cholula, 72830, Puebla"></div>
+    </li>
+
+    <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>Zavaleta, Puebla</h4>
+        <p>Tel: <a class="tel" href='tel:2229780164'>(222) 978 0164</a></p>
+      </div>
+       <div class='grid__item medium-up--two-thirds'>       
+        <p class="address"> Calzada Zavaleta 2531, Colonia Santa Cruz Buenavista, 72150, Puebla</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990">Estacionamiento dentro de la plaza</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 09:30 a 20:30</p>
+        <p class="schedule">Sábados y Domingos de 11:00 a 20:00</p>
+      </div>
+      <div class="location hidden" data-lat="19.0518267" data-lng="-98.2494548" data-label="Zavaleta" data-address="Calzada Zavaleta 2531, Colonia Santa Cruz Buenavista, 72150, Puebla"></div>
+    </li> {% endcomment %}
+
+    {% comment %} <li class='grid downP location-row'>
+      <div class='grid__item medium-up--one-third'>
+        <h4 class='text-red name'>Juriquilla, Querétaro</h4>
+        <p>Tel: <a class="tel" href='tel:4421963311'> (44) 2196 3311</a></p>
+      </div>
+       <div class='grid__item medium-up--two-thirds'>       
+        <p class="address"> Local 112, Anillo Vial Fray Junípero Serra 3101, Santa Fé, 76100, Juriquilla, Querétaro</p>
+        <p class="parking"><img src="https://cdn.shopify.com/s/files/1/2216/9173/files/parking.png?v=1620845990">Estacionamiento dentro de la plaza</p>
+        <h3>Horarios</h3>
+        <p class="schedule">Lunes a Viernes de 09:30 a 20:30</p>
+        <p class="schedule">Sábados y Domingos de 11:00 a 20:00</p>
+      </div>
+      <div class="location hidden" data-lat="20.6911614" data-lng="-100.4467229" data-label="La Cúspide" data-address="Local 112, Anillo Vial Fray Junípero Serra 3101, Santa Fé, 76100, Juriquilla, Querétaro"></div>
+ 	  </li> {% endcomment %}
+
+  </ul>
+</div>
+
+{% schema %}
+  {
+    "name": "Sucursales",
+    "blocks": [
+      {
+        "name": "Sucursal",
+        "type": "location",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "is_soon",
+            "label": "¿Próximamente?",
+            "default": false
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Título"
+          },
+          {
+            "type": "text",
+            "id": "tel",
+            "label": "Teléfono"
+          },
+          {
+            "type": "textarea",
+            "id": "address",
+            "label": "Dirección"
+          },
+          {
+            "type": "text",
+            "id": "state",
+            "label": "Estado"
+          },
+          {
+            "type": "text",
+            "id": "parking",
+            "label": "Estacionamiento"
+          },
+          {
+            "type": "textarea",
+            "id": "schedule",
+            "label": "Horario"
+          },
+          {
+            "type": "text",
+            "id": "lat",
+            "label": "Latitud"
+          },
+          {
+            "type": "text",
+            "id": "lng",
+            "label": "Longitud"
+          },
+          {
+            "type": "text",
+            "id": "popup_title",
+            "label": "Título en Popup" 
+          }
+        ]
+      }
+    ],
+    "settings": []
+  }
+{% endschema %}
+
+{% stylesheet %}  
+{% endstylesheet %}
+
+{% javascript %}  
+{% endjavascript %}

@@ -1,0 +1,197 @@
+{% comment %}
+ LayoutHub (https://layouthub.com)
+ You SHOULD NOT modify source code in this page because
+ It is automatically generated from LayoutHub
+ {% endcomment %} 
+ <div class="lh-sections-wrapper" data-id="5f2202b41bb6c91e62361dc2" data-type="page">
+<section id="" data-section-id="6ntwh1vpr14" data-section="call-to-action-2-3" data-layouthub="section">  
+  
+
+<div class="lh-wrapper">
+  <include data-name="content" data-id="1">  
+ <div class="lh-cta-section" style="background: #ffffff url('https://cdn.shopify.com/s/files/1/2216/9173/t/5/assets/Banner_4.jpg?v=1597891500') center center/cover no-repeat scroll">
+  <div class="lh-wrap-content">
+    <div class="lh-container">
+      <div class="lh-wrap-text">
+        <div class="lh-title"  data-lhi="title" data-lh-lang>{{'6ntwh1vpr14.3q25k' | t }}</div>
+        <div class="lh-content"  data-lhi="content" data-lh-lang>{{'6ntwh1vpr14.k54u3t_html' | t }}</div>
+        <div class="lh-wrap-button"  data-lhi="button" data-lhi-child="a"><a href="#" data-ga-action="button" data-ga-label="Button">¡Ve los productos!</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+  </include></div>
+  </section><section id="" data-section-id="xy3vzgvz6p" data-section="our-client" data-dev="huynh-duc" data-layouthub="section">  
+ <div class="lh-our_client-wrapper">
+	<div class="lh-container">
+		<div class="lh-wrap-slide owl-carousel">
+			 <div class="lh-item"  data-lhi="items[0]img" data-lhi-child="a" data-lhis="items-img"><a href="#" data-ga-action="img" data-ga-label="Image"><img src="https://cdn.shopify.com/s/files/1/2216/9173/t/5/assets/Logos_DG_Artboard9.png?v=1597812984" /></a></div>
+			 <div class="lh-item"  data-lhi="items[1]img" data-lhi-child="a" data-lhis="items-img"><a href="#" data-ga-action="img" data-ga-label="Image"><img src="https://cdn.shopify.com/s/files/1/2216/9173/t/5/assets/CopiadeLOGO_FINAL_180x110_crop_center.png" /></a></div>
+			 <div class="lh-item"  data-lhi="items[2]img" data-lhi-child="a" data-lhis="items-img"><a href="#" data-ga-action="img" data-ga-label="Image"><img src="https://cdn.shopify.com/s/files/1/2216/9173/t/5/assets/Logos_DG_Artboard10_600x320_crop_center.png" /></a></div>
+			 
+		</div>
+	</div>
+</div>
+ 
+  </section><section id="" data-section-id="fiwlvalm41" data-section="story" data-dev="nguyen-minh" data-layouthub="section">  
+ <div class="lh-wrapper">
+	<div class="lh-container">
+		<div class="lh-row">
+			<div class="lh-col-left">
+				<div class="lh-img"  data-lhi="img" data-lhi-child="a"><a href="https://cdn.shopify.com/s/files/1/2216/9173/t/5/assets/LogosDonacin_Mesadetrabajo11.png?v=1596063032"><img src="https://cdn.shopify.com/s/files/1/2216/9173/t/5/assets/TeteraMesadetrabajo1.jpg?v=1597812396" /></a></div>
+			</div>
+			<div class="lh-col-right">
+				<div class="lh-text">
+					<h3  data-lhi="title" data-lh-lang>{{'fiwlvalm41.3q25k' | t }}</h3>
+					<p  data-lhi="des" data-lh-lang>{{'fiwlvalm41.ima_html' | t }}</p>
+					<div class="lh-btn"  data-lhi="btn" data-lh-lang data-lhi-child="a"><a href="#" data-ga-action="tracking" data-ga-label="Button">{{'fiwlvalm41.ifw' | t }}</a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+  </section><section id="" data-section-id="r8dqrg7dykn" data-section="collection-8" data-dev="trong-dai" data-layouthub="section">  
+ {%- assign tpl =  template | replace: '.', ' ' | truncatewords: 1, '' | handle  -%}
+			{%- if tpl != 'collection' and collection == blank -%}
+				 
+					{% assign collection = collections['donando-gramos'] %}
+				 
+			{%- endif -%}
+			{% assign size = collection.all_products_count %}{%- paginate collection.products by 12-%}<div class="lh-wrapper lh-collection-page" data-team="The4">
+  <div class="lh-collection-wrap">
+    <div class="lh-container">
+      <div class="lh-row">
+        <div class="lh-col-md-12">
+          <div class="lh-tab-collection full_text lh-badge-no" >
+            <div class="lh-collection-heading">
+				{{collection.title}} 
+			</div>
+			
+      <div class="lh-collection-content">
+				<div class="lh-collection-list">
+
+          <div class="lh-item-collection" >
+            <div class="lh-row lh-2mb-no">
+            {% assign limit = 12%}
+						{%- for product in collection.products limit: limit -%}
+						{% assign first_variant = product.selected_or_first_available_variant %}
+						
+              <div class="lh-col-md-4">
+                <div class="lh-item-product">
+                  <div class="lh-product-image">
+                    <a href="{{product.url | within: collection}}">
+    									 
+    										<img src="{{product.featured_image | img_url : '370x370_crop_center'}}" alt="{{product.title}}">
+    										{% if product.images.size > 1 %}
+    											<img src="{{product.images[1] | img_url : '370x370_crop_center'}}" class="hover-image" alt="{{product.title}}">
+    										{% else %}
+    											<img src="{{product.featured_image | img_url : '370x370_crop_center'}}" class="hover-image" alt="{{product.title}}">
+    										{% endif %}
+    									 
+    								</a>
+                    <div class="lh-product-badges">
+    									{% if first_variant.available == false %}
+    										<span class="lh-sold-out" data-lhi="trans_soldout_text"></span>
+    									{% else %}
+    										{% if first_variant.price < first_variant.compare_at_price and first_variant.available %}
+    											<span class="lh-onsale" data-lhi="trans_sale_text"></span>
+												{% endif %}
+												
+												{%- for tag in product.tags -%}
+													{%- if tag == 'new' -%}
+														<span class="lh-hot" data-lhi="trans_new_text"></span>
+														{%- break -%}
+													{%- endif -%}
+												{%- endfor -%}
+    									{% endif %}
+    								</div>
+                    <div class="lh-product-item-actions">
+                        <div class="lh-wishlist-wrapper lh-tooltip_top" title="Wishlist">
+													{% capture wishlist_content %}
+													<a href="javascript:void(0)">
+														<svg version="1.1" width="16" height="16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"> <path fill="currentColor" d="M90.4,14.9c-5-5-11.6-7.7-18.7-7.7c-7.1,0-13.8,2.7-18.7,7.7l-3,3l-3-3c-5-4.8-11.8-7.6-18.6-7.6c-7.1,0-13.7,2.7-18.7,7.6 C-0.7,25.2-0.7,42,9.7,52.4l15.8,15.8l5.9,5.9l0.2,0.2L50.3,93L69,74.3l16.8-17l4.9-4.9c4.9-4.9,7.7-11.6,7.7-18.7 C98.1,26.5,95.4,19.8,90.4,14.9z M86.5,48.3l-5,5l-16.7,17L50.1,85.1L35.4,70.3l-0.2-0.2l-5.9-5.9L13.6,48.5 c-8.2-8.2-8.2-21.5,0-29.7c3.9-3.9,9.1-6,14.8-6c5.4,0,10.8,2.2,14.8,6l6.9,6.9l6.9-6.9c3.9-3.9,9.2-6.1,14.8-6.1 c5.6,0,10.9,2.2,14.8,6.1c3.9,3.9,6,9.1,6,14.8C92.6,39.2,90.4,44.4,86.5,48.3z"></path></svg>
+													</a>
+    											{% endcapture %}
+    											{% render 'layouthub_wishlist', wishlist_content:wishlist_content, wishlist_type: 'other',product: product %}
+                        </div> 
+                        <div class="lh-quickview-wrapper lh-tooltip_top">
+													{% capture quickview_content %}
+														<a href="javascript:void(0)" title="Quick View">
+															<svg version="1.1" width="16" height="16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"> <g> <path fill="currentColor" d="M93.9,46.6C83.6,35,67.5,28.3,49.8,28.3C32,28.6,16,35.2,5.7,46.7l-2.9,3.4l3,3.3C16.2,65,32.3,71.7,49.9,71.7 c17.8,0,33.9-6.7,44.1-18.3l3.2-3.4L93.9,46.6z M49.9,66.2c-16,0-30.4-5.9-39.8-16.2c9.3-10,23.7-15.9,39.7-16.1 c16,0,30.5,5.9,39.8,16.2C80.4,60.3,65.9,66.2,49.9,66.2z"></path> <circle fill="currentColor" cx="49.8" cy="50" r="7.7"></circle> </g></svg>
+														</a>
+    											{% endcapture %}
+    											{% render 'layouthub_quickview', quickview_content: quickview_content, product: product %}
+                        </div>
+    										<div class="lh-btn-cart-group">
+    												{% capture icon_cart %}
+															<svg version="1.1" width="16" height="16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"> <g> <path fill="currentColor" d="M90.6,2.5h-8c-1.9,0-3.5,1.4-3.7,3.4L77,24.9H11.4c-1.5,0-2.8,0.7-3.8,1.8c-0.9,1.2-1.2,2.7-0.8,4.1l10.7,41.9 c0.5,2.1,2.4,3.6,4.6,3.6H73c0.3,0,0.7,0,1-0.1c0.2,0,0.3,0.1,0.5,0.1c0.1,0,0.2,0,0.3,0c1.4,0,2.6-1.1,2.7-2.5l0.2-1.7 c0,0,0,0,0,0l4.9-47.1h-0.1L84.2,8h6.4c1.5,0,2.8-1.2,2.8-2.8S92.2,2.5,90.6,2.5z M12.3,30.4h64.1l-4.1,40.4H22.7L12.3,30.4z"></path> <circle fill="currentColor" cx="31.2" cy="89.4" r="8"></circle> <circle fill="currentColor" cx="64.2" cy="89.4" r="8"></circle> </g> </svg>
+    												{% endcapture %}
+                            {% if product.available %}
+                            	{% if product.variants.size > 1 %}
+                                	<a href="{{ product.url | within: collection }}" data-handle="{{product.handle}}" data-pid="{{product.id}}" title="View more">
+    																{{icon_cart}}
+                                	</a>
+                          		{% else %}
+                                	<a href="/cart/add/{{product.variants.first.id}}" data-id="{{product.variants.first.id}}"  data-handle="{{product.handle}}" data-pid="{{product.id}}" title="Add to cart">
+    																{{icon_cart}}
+                                	</a>
+                            	{% endif %}
+                            {% else %}
+                              <a href="{{ product.url | within: collection }}" data-handle="{{product.handle}}" data-pid="{{product.id}}" title="Out stock">
+    														{{icon_cart}}
+                              </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                  </div>
+                  <div class="lh-product-info">
+                     
+                    <h3 class="lh-product-title">
+                      <a href="{{product.url | within: collection }}">{{product.title}}</a>
+                    </h3>
+                    <div class="lh-price-wrapper">
+											{% if first_variant.compare_at_price > 0 and first_variant.compare_at_price > first_variant.price %}
+  										<del class="lh-product-compare-price">{{first_variant.compare_at_price | money}}</del>
+  										{% endif %}
+  										<ins class="lh-product-price">{{first_variant.price | money}}</ins>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+            </div>
+             
+          </div>
+        </div>
+      </div></div>
+        </div>
+        <div class="lh-col-md-12">
+          <include data-name="pagination" data-id="1">  
+ <ul class="lh-pagination">
+  {% capture previous_label %}
+				<span class="lh-fallback-text">
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"><path fill="currentColor" d="M70.4,2.4L26.2,46.8c-0.9,0.9-1.3,2.1-1.3,3.3c0,1.2,0.5,2.4,1.3,3.3l44.2,44.2c1.1,1.1,2.8,1.1,3.9,0c0.5-0.5,0.8-1.2,0.8-1.9c0-0.7-0.3-1.4-0.8-1.9L30.7,50.1L74.3,6.3c1.1-1.1,1.1-2.8,0-3.9C73.2,1.3,71.5,1.3,70.4,2.4z"></path></svg>
+			  </span>
+			{% endcapture %}
+			{% capture next_label %}
+				<span class="lh-fallback-text">
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"><path fill="currentColor" d="M29.6,97.6l44.2-44.4c0.9-0.9,1.3-2.1,1.3-3.3c0-1.2-0.5-2.4-1.3-3.3L29.6,2.4c-1.1-1.1-2.8-1.1-3.9,0c-0.5,0.5-0.8,1.2-0.8,1.9c0,0.7,0.3,1.4,0.8,1.9l43.6,43.6L25.7,93.7c-1.1,1.1-1.1,2.8,0,3.9C26.8,98.7,28.5,98.7,29.6,97.6z"></path></svg>
+				</span>
+			{% endcapture %}
+			
+			{% if paginate.pages > 5 %}
+				{{ paginate | default_pagination: previous: previous_label, next: next_label }}
+			{% else %}
+				{{ paginate | default_pagination: previous: '', next: '' }}
+			{% endif %}</ul>  </include></div>
+        {%- endpaginate -%}</div>
+    </div>
+  </div>
+</div>
+ 
+  </section>
+</div>
+ {%schema%} 
+{"locales":{"es":{"6ntwh1vpr14":{"3q25k":"Donando  Gramos","k54u3t_html":"\u00a1\u00danete a nuestra campa\u00f1a, <br>cada gramo suma!"},"fiwlvalm41":{"3q25k":"Juntos apoyamos a las familias mexicanas","ima_html":"\u00a1Hoy m\u00e1s que nunca M\u00e9xico nos necesita!  <br>\nDonando Gramos es un programa de donativos de despensas para las familias que viven en pobreza extrema y han sido afectadas por la pandemia del COVID-19. Los donativos se entregar\u00e1n a la Fundaci\u00f3n Comedor Santa Mar\u00eda a trav\u00e9s de Comunal MX, quienes tienen como objetivo la nutrici\u00f3n de ni\u00f1os y familias de escasos recursos. De gramo en gramo y por cada gramo que dones, Estado Natural donar\u00e1 otro.","ifw":"Read full"}},"en":{"6ntwh1vpr14":{"3q25k":"Donando  Gramos","k54u3t_html":"\u00a1\u00danete a nuestra campa\u00f1a, <br>cada gramo suma!"},"fiwlvalm41":{"3q25k":"Juntos apoyamos a las familias mexicanas","ima_html":"\u00a1Hoy m\u00e1s que nunca M\u00e9xico nos necesita!  <br>\nDonando Gramos es un programa de donativos de despensas para las familias que viven en pobreza extrema y han sido afectadas por la pandemia del COVID-19. Los donativos se entregar\u00e1n a la Fundaci\u00f3n Comedor Santa Mar\u00eda a trav\u00e9s de Comunal MX, quienes tienen como objetivo la nutrici\u00f3n de ni\u00f1os y familias de escasos recursos. De gramo en gramo y por cada gramo que dones, Estado Natural donar\u00e1 otro.","ifw":"Read full"}}},"name":"Donando Gramos"}
+ {%endschema%}

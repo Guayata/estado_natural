@@ -1,0 +1,34 @@
+{% comment %}V3.0.2 - October 2019
+This liquid snippet is used by Discount Ninja, an app from Limoni Apps
+Do not modify or remove this snippet, this snippet can be overwritten when the app is upgraded
+{% endcomment %}
+
+{% comment %}
+Add noscript css to the body to disable block animation if JavaScript is unavailable
+Add a warning for users that disable JavaScript
+{% endcomment %}
+<noscript>
+    <style>
+        .limoniapps-discountninja-block { animation: unset; }
+            .limoniapps-discountninja-block:after { animation: unset; }
+            .limoniapps-discountninja-block .limoniapps-discountninja-button-spinner:before { animation: unset; }
+    </style>
+	<div class="limoniapps-discountninja-warning-nojs">This website uses JavaScript to apply discounts. To be eligible for discounts, please enable JavaScript for your browser.</div>
+</noscript>
+
+{% comment %}
+Load js in the body
+{% endcomment %}
+{% include 'limoniapps-discountninja-context' %}
+
+{% comment %}
+Add building blocks to the body
+{% endcomment %}
+{% include 'limoniapps-discountninja-stickybar' %}
+{% include 'limoniapps-discountninja-notification' %}
+{% include 'limoniapps-discountninja-popup' %}
+{% include 'limoniapps-discountninja-badge' %}
+{% include 'limoniapps-discountninja-cartdiscountfield' %}
+{% include 'limoniapps-discountninja-giftbox' %}
+{% include 'limoniapps-discountninja-volumediscounts' %}
+{% include 'limoniapps-discountninja-promotionsummary' %}

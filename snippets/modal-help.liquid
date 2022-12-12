@@ -1,0 +1,25 @@
+<div style="display:none" id="modal-help">
+  <div class="grid grid--uniform modal-help">
+    <div class="grid__item one-whole medium-up--one-half">
+      <h2>Más información</h2>
+      <ul class="links-list">
+        {% for childlink in linklists['help-menu'].links %}
+          <li><a href="{{ childlink.url }}">{{ childlink.title | escape }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="grid__item one-whole medium-up--one-half">
+      <h2>Atención al Cliente</h2>
+      <p>¡Estamos para ayudarte!</p>
+      <ul class="links-list links-list--icons">
+        <li><a href="mailto:yocompro@EstadoNatural.com.mx"><i class="fa fa-envelope"></i> yocompro@EstadoNatural.com.mx</a></li>        
+      </ul>
+      <br></br>
+       <h2>Nuevos Proveedores y Colaboraciones</h2>
+      <p>¿Quieres ser proveedor o colaborar con nosotros?</p>
+      <ul class="links-list links-list--icons">
+        <li><a href="mailto:info@EstadoNatural.com.mx"><i class="fa fa-envelope"></i> info@EstadoNatural.com.mx</a></li>        
+      </ul>
+    </div>
+  </div>
+</div>

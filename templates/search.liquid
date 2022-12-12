@@ -1,0 +1,136 @@
+{% paginate search.results by 9999 %}
+
+<div class="page-width">
+  {% if search.results_count == 0 or search.performed == false %}
+    <div class="empty-page-content text-center">
+      <h1 class="h2">{{ 'general.search.title' | t }}</h1>
+  {% else %}
+    <div class="section-header text-center">
+      <h1 class="h2">{{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}</h1>
+  {% endif %}
+        <div class="grid">
+          <div class="grid__item medium-up--two-fifths medium-up--push-three-tenths">
+            <form action="/search" method="get" role="search" class="search">
+              <div class="input-group">
+                <input type="search"
+                  id="SearchInput"
+                  class="input-group__field search__input"
+                  name="q"
+                  value="{{ search.terms | escape }}"
+                  placeholder="{{ 'general.search.placeholder' | t }}"
+                  aria-label="{{ 'general.search.placeholder' | t }}"
+                  autofocus>
+                <span class="input-group__btn">
+                  <button class="btn search__submit" type="submit">{{ 'general.search.submit' | t }}</button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        {% if search.performed and search.results_count == 0 %}
+          <hr class="hr--small hr--invisible">
+          <p>{{ 'general.search.no_results_html' | t: terms: search.terms }}</p>
+        {% endif %}
+  </div>
+</div>
+
+
+{% if search.performed %}
+  {% if search.results_count > 0 %}
+    <hr>
+  {% endif %}
+  <div class="page-width list-view-items">
+    <h2>Productos</h2>	
+    {% for item in search.results %}      
+		{% if item.object_type == 'product' %}
+          <a href="{{ item.url }}" class="list-view-item">
+            {% include 'product-card-list', product: item %}
+          </a>    	
+   		{% else %}
+    		<span style="display:none">{{ item.title }}</span>
+      	{% endif %}
+    	
+    {% endfor %}
+  </div>
+  
+  {% assign first_time = true %}
+  {% capture article_list %}
+  	{%- for item in search.results -%}
+  		{%- if item.object_type == 'article' -%}
+  			{%- if first_time == false -%}::{%- endif -%}{{item.url}}||{%- if item.image -%}{{ item.image.src | img_url: '600x600' }}{%- else -%}null{%- endif -%}||{{ item.title }}||{%- if item.published_at -%}{{ item.published_at | date: "%b %d, %Y" }} &#8212; {%- else -%}null{%- endif -%}||{{ item.content | strip_html | truncate: 200 }}
+  			{%- assign first_time = false -%}
+  		{%- endif -%}
+  	{%- endfor -%}
+  {% endcapture %}
+
+  {% assign first_time = true %}
+  {% capture page_list %}
+  	{%- for item in search.results -%}
+  		{%- if item.object_type == 'page' -%}
+  			{%- if first_time == false -%}::{%- endif -%}{{item.url}}||{%- if item.image -%}{{ item.image.src | img_url: '600x600' }}{%- else -%}null{%- endif -%}||{{ item.title }}||{%- if item.published_at -%}{{ item.published_at | date: "%b %d, %Y" }} &#8212; {%- else -%}null{%- endif -%}||{{ item.content | strip_html | truncate: 200 }}
+  			{%- assign first_time = false -%}
+  		{%- endif -%}
+  	{%- endfor -%}
+  {% endcapture %}
+	
+  {%-  assign search_array = article_list | strip | split: '::' -%}
+  {%- if search_array.size > 0 -%}
+  <div class="page-width list-view-items" style="margin-top: 40px">
+    <h2 style="margin-bottom: 20px">Artículos</h2>	
+    {%- for item in search_array -%}
+    	{% assign item_vals = item | split: '||' %}
+    <a href="{{ item_vals[0] }}" class="list-view-item">
+      {% if item_vals[1] != "null" %}
+      	<div class="list-view-item__image-column">
+          <div class="list-view-item__image-wrapper">
+            <img class="list-view-item__image" src="{{ item_vals[1] }}" alt="{{ item_vals[2] }}">
+          </div>
+        </div>
+      {% endif %}
+      <div class="list-view-item__title-column">
+        <div class="list-view-item__title">{{ item_vals[2] }}</div>
+        <div class="">
+          {% if item_vals[3] != "null" %}{{ item_vals[3] }} &#8212; {% endif %}
+          {{ item_vals[4] }}
+        </div>
+      </div>
+    </a>
+    {%- endfor -%}
+    
+  </div>
+  {%- endif -%}
+  
+  {%-  assign search_array = page_list | strip | split: '::' -%}
+  {%- if search_array.size > 0 -%}
+  <div class="page-width list-view-items" style="margin-top: 40px">
+    <h2 style="margin-bottom: 20px">Páginas</h2>	
+    {%- for item in search_array -%}
+    	{% assign item_vals = item | split: '||' %}
+    <a href="{{ item_vals[0] }}" class="list-view-item">
+      {% if item_vals[1] != "null" %}
+      	<div class="list-view-item__image-column">
+          <div class="list-view-item__image-wrapper">
+            <img class="list-view-item__image" src="{{ item_vals[1] }}" alt="{{ item_vals[2] }}">
+          </div>
+        </div>
+      {% endif %}
+      <div class="list-view-item__title-column">
+        <div class="list-view-item__title">{{ item_vals[2] }}</div>
+        <div class="">
+          {% if item_vals[3] != "null" %}{{ item_vals[3] }} &#8212; {% endif %}
+          {{ item_vals[4] }}
+        </div>
+      </div>
+    </a>
+    {%- endfor -%}
+    
+  </div>
+  {%- endif -%}
+
+  {% if paginate.pages > 1 %}
+    {% include 'pagination' %}
+  {% endif %}
+{% endif %}
+
+{% endpaginate %}

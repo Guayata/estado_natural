@@ -1,0 +1,197 @@
+{% comment %}
+ LayoutHub (https://layouthub.com)
+ You SHOULD NOT modify source code in this page because
+ It is automatically generated from LayoutHub
+ {% endcomment %} 
+ <div class="lh-sections-wrapper" data-id="5ffc841b626ddb19d3754012" data-type="article">
+{% comment %}
+ LayoutHub (https://layouthub.com)
+ You SHOULD NOT modify source code in this page because
+ It is automatically generated from LayoutHub
+ {% endcomment %} 
+ <div class="lh-sections-wrapper" data-id="5ffc841b626ddb19d3754012" data-type="article">
+  
+<section id="" data-section-id="PYHuZUx0vq" data-section="blog-detail" data-dev="dat" data-lh-page-id="412" data-lh-page-name="Blog Detail - Deru" data-layouthub="section">  
+ {%- assign tpl =  template | replace: '.', ' ' | truncatewords: 1, '' | handle  -%}
+      {% assign string_cate = blog.title | append: "|" | append: blog.handle %}
+       
+      {%- if tpl != 'article' and article == blank -%}
+         
+          {% assign string_cate = '' %}
+          {% assign handle_blog = '' %}
+         
+        {% assign blog = blogs[handle_blog] %}
+        {% assign article = blog.articles.first %}
+         
+          {% assign handle_blog = '\/' %}
+          {% assign blog = blogs[handle_blog] %}
+          {% assign article = articles['recetas-de-comidas-saludables/ya-llego-el-2021-y-es-momento-de-hacer-cambios'] %}
+         
+      {%- endif -%}<div class="lh-wrapper lh-blog-section lh-sidebar-yes lh-right" data-hub-attr-state="class%3D%22lh-wrapper%20lh-blog-section%20lh-sidebar-%257B%253A%257Bsection.settings.use_sidebar%257D%253A%257D%20%257B%253A%257Bsection.settings.style_sidebar%257D%253A%257D%22"  data-hub-attr-use_sidebar  data-hub-attr-style_sidebar >
+  <div class="lh-popup-sidebar">
+    <a href="javascript:void(0)">
+      <svg version="1.1" width="0" height="0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+         viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
+      <g>
+        <path fill="currentColor" d="M5.5,31.7h89c1.5,0,2.8-1.2,2.8-2.8s-1.2-2.8-2.8-2.8h-89c-1.5,0-2.8,1.2-2.8,2.8S4,31.7,5.5,31.7z"/>
+        <path fill="currentColor" d="M94.5,47.3h-89c-1.5,0-2.8,1.2-2.8,2.8s1.2,2.8,2.8,2.8h89c1.5,0,2.8-1.2,2.8-2.8S96,47.3,94.5,47.3z"/>
+        <path fill="currentColor" d="M94.5,68.3h-89c-1.5,0-2.8,1.2-2.8,2.8s1.2,2.8,2.8,2.8h89c1.5,0,2.8-1.2,2.8-2.8S96,68.3,94.5,68.3z"/>
+      </g>
+      </svg>
+    </a>
+  </div>
+  <div class="lh-container">
+
+ <div class="lh-wrap-breadcrumb">
+        <p  data-lhi="breadcrumb" data-lh-lang></p>
+      </div>
+    <div class="lh-article-title">
+        {{article.title}}</div>
+    <div class="lh-row">
+       
+      <div class="lh-col-md-4 lh-right" data-hub-attr-state="class%3D%22lh-col-md-4%20%257B%253A%257Bsection.settings.style_sidebar%257D%253A%257D%22"  data-hub-attr-style_sidebar >
+        <include data-live-c_title data-live-p_title data-name="sidebar" data-id="1">  
+ <div class="lh-sidebar-wrapper">
+  <div class="lh-sidebar-close">
+    <a href="javascript:void(0)">
+      <svg version="1.1" width="0" height="0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+         viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
+      <path fill="currentColor" d="M53.9,50L96.9,6.9c1.1-1.1,1.1-2.8,0-3.9c-1.1-1.1-2.8-1.1-3.9,0L50,46.1L6.9,3.1C5.9,2,4.1,2,3.1,3.1C2,4.1,2,5.9,3.1,6.9
+        L46.1,50L3.1,93.1c-1.1,1.1-1.1,2.8,0,3.9c0.5,0.5,1.2,0.8,1.9,0.8s1.4-0.3,1.9-0.8L50,53.9l43.1,43.1c0.5,0.5,1.2,0.8,1.9,0.8
+        s1.4-0.3,1.9-0.8c1.1-1.1,1.1-2.8,0-3.9L53.9,50z"/>
+      </svg>
+    </a>
+  </div>
+
+  <div class="lh-sidebar-main">
+    <div class="lh-cate-wrapper lh-mb-40">
+
+      <h3 class="lh-s-title"  data-lhi="c_title" data-lh-lang>{{'PYHuZUx0vq.lh_2r_title' | t }}</h3>
+
+      <ul class="lh-list-blog lh-mb-40">
+        {% assign list_cate = string_cate | split: "," %}
+      {%- for item in list_cate -%}
+        {% assign item_value = item | split: "|" | last  %}
+        {% assign b_temp = blogs[item_value] %}
+        <li class="lh-item-blog {% if b_temp.handle == blog.handle %}active{% endif %}">
+          <a href="{{b_temp.url}}" data-article="{{b_temp.handle}}">{{b_temp.title}}</a>
+        </li>
+      {%- endfor -%}</ul>
+    </div>
+    <div class="lh-popular-wrapper lh-mb-40">
+      <h3 class="lh-s-title"  data-lhi="p_title" data-lh-lang>{{'PYHuZUx0vq.lh_34_title' | t }}</h3>
+      <div class="lh-list-popular">
+         
+          {% assign p_cate = blogs['recetas-de-comidas-saludables'] %}
+         
+        {% assign p_limit = 5 %}
+        {%- for p_article in p_cate.articles limit: p_limit -%}
+          <div class="lh-item-popular">
+              <div class="lh-row lh-align-center">
+                <div class="lh-col-md-6">
+                  <div class="lh-article-image">
+                    <a href="{{p_article.url}}">
+                      <img src="{{p_article.image | img_url: "340x228" , crop: "center" }}" alt="{{p_article.title}}">
+                    </a>
+                  </div>
+                </div>
+                <div class="lh-col-md-6">
+                  <div class="lh-article-info">
+                    <div class="lh-article-date">{{p_article.published_at | date: format: 'abbreviated_date' }}</div>
+                    <div class="lh-article-url">
+                      <a href="{{p_article.url}}">{{p_article.title}}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        {%- endfor -%}
+      </div></div>
+  </div>
+</div>
+<div class="lh-sidebar-overlay"></div>  </include></div>
+       
+      <div class="lh-col-md-8" data-art="{%- if article != blank -%} yes {%- else -%} no {%- endif -%}" >
+        <div class="lh-article-main " data-hub-attr-state="class%3D%22lh-article-main%20%257B%253A%257Bsection.settings.title_full%257D%253A%257D%22"  data-hub-attr-title_full >
+
+          <div class="lh-article-content">
+            {{article.content}}</div>
+
+          <div class="lh-article-comment">
+            {%- if article != blank -%}
+      {% if blog.comments_enabled? %}
+        {%- if article.comments_count > 0 -%}
+<div class="lh-comment-list">
+{% paginate article.comments by 5 %}
+{% for comment in article.comments %}
+<div class="lh-comment-item">
+<div class="lh-comment-info">
+<div class="lh-comment-image">
+<img src="https://www.gravatar.com/avatar/{{ comment.email | remove: ' ' | strip_newlines | downcase | md5 }}?s=64&d=mm&r=g" alt="{{comment.author}}">
+</div>
+
+</div>
+<div class="lh-comment-author">
+<div class="lh-comment-content">
+<span class="lh-author">{{comment.author}}</span>
+<span class="lh-date">{{comment.created_at | date: '%d/%m/%Y'}}</span>
+</div>
+        <div class="lh-main-content">
+      {{comment.content}}
+  </div>
+
+</div>
+</div>
+{% endfor %}
+{% endpaginate %}
+</div>
+        <div class="lh-comment-count">
+          <h4 class="lh-title-cmt"><span>{{article.comments_count}} comment {%- if article.comments_count > 1 -%}s{%- endif -%}</span> {%- if article.comments_count == 0 -%} . Write a comment{%- endif -%}</h4>
+        </div>
+
+        {%- else -%}
+         <div class="lh-comment-count">
+          <h4 class="lh-title-cmt"><span>0 comments</span> {%- if article.comments_count == 0 -%} . Write a comment{%- endif -%}</h4>
+        </div>
+        {%- endif -%}
+
+        {% form 'new_comment', article %}
+           
+          {% if blog.moderated? %}
+
+          {% endif %}
+          {% if form.errors %}
+  {{ form.errors | default_errors }}
+  {% endif %}
+  <div class="lh-input-wrapper">
+  <div>
+  <input {% if form.errors contains "author" %} class="error"{% endif %} type="text" name="comment[author]" placeholder="Nombre" id="comment-author" value="{{ form.author }}" required>
+  <input {% if form.errors contains "email" %} class="error"{% endif %} type="email" name="comment[email]" placeholder="Email" id="comment-email" value="{{ form.email }}" autocorrect="off" autocapitalize="off" required>
+  </div>
+  <div class="lh-bottom">
+  <textarea {% if form.errors contains "body" %} class="error"{% endif %} name="comment[body]" id="comment-body" placeholder="Comentario" rows="1" required></textarea>
+  <button type="submit" class="button"   data-lhi="label_submit" data-lh-lang>{{'PYHuZUx0vq.lh_sjlit0_submit' | t }}</button>
+  </div>
+  </div>
+
+        {% endform %}
+      {% endif %}
+    {%- endif -%}</div>
+        </div>
+        <div class="lh-message" >
+          <p>Empty content. Please select category to preview</p>
+          <div class="lh-wrap-btn" >
+            <a href="javascript:void(0)" >Select category</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+  </section>
+</div>
+</div>
+ {%schema%} 
+{"locales":{"es":{"PYHuZUx0vq":{"lh_sjlit0_submit":"COMENTAR","lh_2r_title":"blog estado natural","lh_34_title":"te puede interesar"}},"en":{"PYHuZUx0vq":{"lh_sjlit0_submit":"COMENTAR","lh_2r_title":"blog estado natural","lh_34_title":"te puede interesar"}}},"name":"article page"}
+ {%endschema%}

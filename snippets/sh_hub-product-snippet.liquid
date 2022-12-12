@@ -1,0 +1,19 @@
+
+<script>
+	var HUBParams = {
+		"id" : "950427c801ebdd8771b44b6ee3fdafa8",
+		"storePath": "https://cdn-spurit.com/shopify-apps/social-proof/store/",
+		"cssPath": "https://cdn-spurit.com/shopify-apps/social-proof/",
+		"cdnHostPath": "https://cdn-spurit.com/",
+		"product" : {{ product | json }}
+	};
+	HUBParams.product.collections = {{ product.collections | json }};
+
+    var i = 0;
+    {% for variant in product.variants %}
+        HUBParams.product.variants[i].inventory_quantity = {{ variant.inventory_quantity }};
+        HUBParams.product.variants[i].inventory_policy = "{{ variant.inventory_policy }}";
+        i++;
+    {% endfor %}
+</script>
+<script src="https://cdn-spurit.com/shopify-apps/social-proof/common.js"></script>

@@ -1,0 +1,1 @@
+!function(t){(function(t,e){}).bind(t('section[data-section-id="G1XnYxk6re"]').get(0))({url:"https://library.layouthub.com/HUB/files/Tm92LS0yMDE5/NTc0ODY0ODc5/First_release/pages/Cowi/about-us/",settings:{}},jQuery)}(jQuery),console.log("This page layout has been built by https://www.layouthub.com");

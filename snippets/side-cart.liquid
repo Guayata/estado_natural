@@ -1,0 +1,35 @@
+<div class="quick-cart-container">
+  <div class="quick-cart__box">
+    <form action="/cart" method="post">
+
+      <header class="quick-cart__header">        
+        <h2 class="quick-cart__title">Tu carrito</h2>
+        <a href="#" class="quick-cart__btn-hide quick-cart-close"><i class="fa fa-times"></i></a>
+      </header>
+
+      <div class="quick-cart__body">
+        {% for item in cart.items %}
+          {% include 'quick-cart-item' %}      
+        {% endfor %}
+      </div>        
+
+      <footer class="quick-cart__footer">
+        <div class="quick-cart__total">
+          <div class="grid grid--uniform grid--no-float">
+            <div class="grid__item one-half"><p>Subtotal</p></div>
+            <div class="grid__item one-half text-right"><p class="quick-cart__total-price">{{ cart.total_price  | money  }}</p></div>        
+          </div>
+        </div>
+        <a class="btn btn--go-to-cart" href="/cart">Revisar carrito</a>
+        <button name="checkout" class="btn btn--checkout" type="submit">Pagar</button>
+      </footer>
+      
+    </form>
+    
+    <div class="quick-cart__empty text-center">
+      <h2>No hay productos en tu carrito</h2>
+    </div>
+    
+  </div>
+  <div class="quick-cart__overlay quick-cart-close"></div>
+</div>

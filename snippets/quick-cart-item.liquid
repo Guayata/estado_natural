@@ -1,0 +1,14 @@
+<div class="quick-cart__item">
+  <div class="grid grid--uniform grid--no-float">
+    <div class="grid__item one-third">
+      <img class="img-responsive" src="{{ item | img_url: '140x' }}" alt="{{ item.title | escape }}" data-item-url="{{ item.url }}">
+    </div>
+    <div class="grid__item two-thirds">
+      <div class="quick-cart__item-title">
+        <p>{{ item.product.title  }}</p>        
+        <p><div class="un-line-item-unit-price" data-id="{{ item.key }}">{{ item.price | money }}</div> x <input value="{{ item.quantity }}" name="quantity" class="quick-cart__quantity" data-item-id="{{ item.id }}"></p>
+        <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" data-item-id="{{ item.id }}" class="quick-cart__remove"><i class="fa fa-times-circle"></i></a>
+      </div>
+    </div>        
+  </div>
+</div>

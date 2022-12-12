@@ -1,0 +1,189 @@
+<script type="text/javascript">
+
+    var existingScript = document.getElementById('primebPopper');
+  	if (!existingScript) {
+		var country = 'primebadgecountry';
+		const scriptpopperb = document.createElement('script');
+		scriptpopperb.src = 'https://unpkg.com/popper.js@1';
+		scriptpopperb.id = 'primebPopper';
+		document.body.appendChild(scriptpopperb);
+		setTimeout(function(){ 
+			const scripttippyb = document.createElement('script');
+			scripttippyb.src = 'https://unpkg.com/tippy.js@5';
+			scripttippyb.id = 'primebTippy';
+			document.body.appendChild(scripttippyb);
+		}, 500);
+  	}
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        setTimeout(function(){ 
+            var primebText = document.getElementsByClassName('primebText');
+            if(primebText[0]){
+                for (var i = 0; i < primebText.length; i++) {
+                    var value = primebText[i].innerHTML;
+                    if( value.indexOf("CountdownTimer:") != -1  ){
+                        myTimerprime2(value,i);
+                    }
+                }
+                
+            }
+        }, 1000); 
+
+        // const primeinstances2 = tippy('[data-tippy-content]');
+        // instances2.destroy();
+        resizeFunction();
+        setTimeout(function(){ 
+            var primeinstances2 = tippy('[data-tippy-content]');
+
+            var primebsku = '{{ProductSKU}}';
+            var skuclass = document.getElementsByClassName('primebsku');
+            if(primebsku == 0){
+                for (var i = 0; i < skuclass.length; i++) {
+                    if(skuclass[i].dataset.sku == 0){
+                        var parentsku = skuclass[i].parentElement;
+                        var parent2sku = parentsku.parentElement;
+                        parent2sku.style.cssText = 'display:none !important';
+                    }
+                }
+            }
+
+        }, 1000);
+        
+        if(country == 'primebadgecountry'){
+            country = 'newprimebadgecountry';
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+            
+                if (this.readyState == 4 && this.status == 200) {
+                    var mycountry = this.responseText;
+                    var countryclass = document.getElementsByClassName('primebCountry');
+                    for (var i = 0; i < countryclass.length; i++) {
+                        var counrtylist = countryclass[i].getAttribute('data-countryselected');
+                        var position = counrtylist.search(mycountry);
+                        
+                        if(position < 0){ 
+                            countryclass[i].style.cssText = 'display:none !important';
+                            // countryclass[i].remove();
+                        }
+                    }
+                }
+            };
+            xhttp.open("GET", "https://geo.thalia.workers.dev/", true);
+            xhttp.send();
+            
+        }
+        
+    })
+
+    window.addEventListener('resize', resizeFunction);
+
+    function resizeFunction() { 
+        var fontadjust = document.getElementsByClassName('prime-font-adjust');
+        var heightadjust = document.getElementsByClassName('prime-height-adjust');
+
+        var xsdevice = window.matchMedia( "(max-width: 575.98px)" );
+        var smdevice = window.matchMedia( "(max-width: 767.98px)" );
+        var mddevice = window.matchMedia( "(max-width: 991.98px)" );
+        var lgdevice = window.matchMedia( "(max-width: 1199.98px)" );
+        var xldevice = window.matchMedia( "(min-width: 1200px)" );
+
+        for (var i = 0; i < fontadjust.length; i++) {
+            var mobilesize = '';
+            var tabletsize = '';
+            mobilesize = fontadjust[i].getAttribute('data-mobilesize');
+            tabletsize = fontadjust[i].getAttribute('data-tabletsize');
+
+            fontadjust[i].style.fontSize = 'inherit';
+
+            if (xsdevice.matches || smdevice.matches ){
+                if(mobilesize > 0){
+                    fontadjust[i].style.fontSize = mobilesize+'px';
+
+                }
+            }else if(mddevice.matches){
+                if(tabletsize > 0){
+                    fontadjust[i].style.fontSize = tabletsize+'px';
+
+                }
+            }
+        }
+        var heightadjust = document.getElementsByClassName('prime-height-adjust');
+        for (var i = 0; i < heightadjust.length; i++) {
+            var image = heightadjust[i].getElementsByClassName("primebImage");
+            var mobileheight = '';
+            var tabletheight = '';
+
+            var defaultHeight = heightadjust[i].getAttribute('data-defaultheight');
+            mobileheight = heightadjust[i].getAttribute('data-mobileheight');
+            tabletheight = heightadjust[i].getAttribute('data-tabletheight');
+
+            // image[0].style.height = defaultHeight+'px';
+            image[0].style.maxHeight = defaultHeight+'px';
+
+            if (xsdevice.matches || smdevice.matches ){
+                if(mobileheight > 0){
+                    // image[0].style.height = mobileheight+'px';
+                    image[0].style.maxHeight = mobileheight+'px';
+                    
+                }
+            }else if(mddevice.matches){
+                if(tabletheight > 0){
+                    // image[0].style.height = tabletheight+'px';
+                    image[0].style.maxHeight = tabletheight+'px';
+                    
+                }
+            }
+        }
+
+    } 
+
+    function redirectLinkbadge(badgeval,links) {
+
+        if(badgeval != ''){
+
+            var badgelink = badgeval;
+            if(links == 0){
+                window.location.href = badgelink;
+            }else{
+                window.open(badgelink,'_blank');
+            }
+
+        }
+    
+    }
+
+    function toValidDateprime2(datestring){
+        return datestring.replace(/(\d{2})(\/)(\d{2})/, "$3$2$1");   
+    }
+
+    function myTimerprime2(newvalue,count) {
+
+        var primebText2 = document.getElementsByClassName('primebText');
+        var pos = newvalue.indexOf("CountdownTimer:");
+        var res = newvalue.slice(pos+15, pos+34);
+        newvalue = newvalue.replace("[[ CountdownTimer:", "" );
+        newvalue = newvalue.replace("]]", "" );
+
+        var x = setInterval(function() { 
+
+            let end = new Date(toValidDateprime2(res));
+            let start = new Date();
+            var remaintime = end - start;
+            var days = Math.floor(remaintime / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((remaintime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((remaintime % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((remaintime % (1000 * 60)) / 1000);
+            var realtimeleft = days + "d "+hours + "h "+minutes + "m "+seconds + "s";
+            if(seconds < 0){
+                realtimeleft = "0d 0h 0m 0s";
+            }
+            primebText2[count].innerHTML = newvalue.replace(res,realtimeleft);
+            primebText2[count].classList.remove("prime-counter");
+            if (remaintime < 0) { 
+                clearInterval(x); 
+            } 
+        }, 1000); 
+
+    }
+
+</script> 

@@ -1,0 +1,58 @@
+<!doctype html>
+<!--[if IE 9]> <html class="ie9 no-js" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{ shop.locale }}"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_button }}">
+  
+                
+<!--MB_OPC-->
+<script data-cfasync='false'>   
+                  if(window.location.pathname=='/securecheckout'){
+                  document.title = 'Secure checkout';
+                  var css = 'body > :not(#cartLoader) {display:none !important}',head = document.head || document.getElementsByTagName('head')[0],style = document.createElement('style');  
+                  head.appendChild(style);style.appendChild(document.createTextNode(css));        
+                  var svg = "<svg style='position:fixed;top:100px;left:50%;margin-left:-100px;' width='200px'  height='200px'  xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='xMidYMid' class='lds-rolling' style='background: none;'><circle cx='50' cy='50' fill='none' ng-attr-stroke='{{config.color}}' ng-attr-stroke-width='{{config.width}}' ng-attr-r='{{config.radius}}' ng-attr-stroke-dasharray='{{config.dasharray}}' stroke='#197bbd' stroke-width='2' r='15' stroke-dasharray='70.68583470577033 25.561944901923447' transform='rotate(243.197 50 50)'><animateTransform attributeName='transform' type='rotate' calcMode='linear' values='0 50 50;360 50 50' keyTimes='0;1' dur='1s' begin='0s' repeatCount='indefinite'></animateTransform></circle></svg>";
+                  document.open();document.write("<!doctype ht"+"ml><ht"+"ml><bo"+"dy><div id='cartLoader' style='min-height:600px;width:100%;text-align:center;background-color: rgba(255, 255, 255, .5);position:absolute;z-index:9999999999'>"+svg+"</div></b"+"ody></ht"+"ml>");document.close();                
+                  }
+                  var opcSettings = {checkoutUrl : 'securecheckout', enabled : false, design : 1, skipCart : false, oneClickBuy : false, customJsFile : '', customCssFile : '', btnSelector : '', enablePopup: false, popupHtml : "",popupBkg : '#ffffff',upsells : [],boosters : {"booster1":"2","booster1_text":"Your order contains highly demanded item. Your order is reserved for <span id=\"timer\"><\/span> minutes!","booster1_text2":"Order reservation ended. You can still complete the order.","booster1_min":"10","booster2":"2","booster3":"1","booster3_heading":"\u00bfPor qu\u00e9 Estado Natural?","booster3_title1":"Garant\u00eda de 100% Satisfacci\u00f3n","booster3_text1":"Si no estas sastisfecho\/a con el producto, no te preocupes te lo cambiamos o hacemos el reembolso.","booster3_img1":"https:\/\/cdn.shopify.com\/s\/files\/1\/2216\/9173\/files\/Iconos_1.png?v=1589238739","booster3_title2":"M\u00e1s de 15,000 \u00f3rdenes entregadas","booster3_text2":"Desde nuestro centro de distribuci\u00f3n, hemos enviado a los 32 estados de M\u00e9xico m\u00e1s de 15,000 \u00f3rdenes. ","booster3_img2":"https:\/\/cdn.shopify.com\/s\/files\/1\/2216\/9173\/files\/Iconos_3.png?v=1589238756","booster3_title3":"100% Mexicana","booster3_text3":"Cuando compras en Estado Natural , no solo compras con m\u00ednimo desperdicio, tambi\u00e9n apoyas a peque\u00f1os productores en M\u00e9xico a quienes les compramos directamente.","booster3_img3":"https:\/\/cdn.shopify.com\/s\/files\/1\/2216\/9173\/files\/Iconos_2.png?v=1589238749","booster3_title4":"","booster3_text4":"","booster3_img4":"","booster4":"2","booster4_img":"","booster5":"1"}};
+                  var opcLang = {completeOrder : "Completa tu \u00f3rden", payment : "Pago", shippingMethod : "M\u00e9todo de Env\u00edo", secureCheckout : "Secure Checkout", paymentNotice : "Favor de ingresar la informaci\u00f3n en los pasos anteriores para mostrar los m\u00e9todos de pago.",shippingNotice : "Favor de ingresar la informaci\u00f3n en el paso anterior para mostrar los m\u00e9todos de env\u00edo.",upsellTitle : "\u00bfQuisieras agregar esto? (Opcionall)",upsellAdded : "\u00a1El producto se ha agregado a tu carrito!",addToCheckout : "Agregar al carrito"};
+                  </script>
+<!--MB_OPC-->
+
+                <link rel="canonical" href="{{ canonical_url }}">
+
+  {% if settings.favicon != blank %}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {% endif %}
+
+  {%- assign formatted_initial_value = gift_card.initial_value | money_without_trailing_zeros: gift_card.currency -%}
+  {%- assign formatted_initial_value_stripped = formatted_initial_value | strip_html -%}
+  <title>{{ 'gift_cards.issued.title_html' | t: value: formatted_initial_value_stripped, shop: shop.name }}</title>
+
+  <meta name="description" content="{{ 'gift_cards.issued.subtext' | t }}">
+
+  {% include 'google-fonts' %}
+
+  {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+  {{ 'gift-card.scss.css' | asset_url | stylesheet_tag }}
+
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer="defer"></script><!--<![endif]-->
+  <!--[if lte IE 9]><script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}"></script><![endif]-->
+
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
+  <!--[if lte IE 9]><script src="{{ 'vendor.js' | asset_url }}"></script><![endif]-->
+
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'gift-card.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
+  <!--[if lte IE 9]><script src="{{ 'gift-card.js' | asset_url }}"></script><![endif]-->
+
+  {{ content_for_header }}
+</head>
+
+<body class="template-giftcard">
+  {{ content_for_layout }}
+{% include 'booster-discounts' %}
+</body>
+</html>

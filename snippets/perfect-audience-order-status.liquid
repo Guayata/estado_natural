@@ -1,0 +1,10 @@
+
+			<script type="text/javascript">
+				
+			{% if first_time_accessed %}
+				window._pq = window._pq || [];
+				_pq.push(['track', 'PurchasedItem', {orderId: "{{ order.order_number }}", revenue: ({{ order.subtotal_price }}/100)}]);
+			{% endif %}
+		
+			</script>
+		

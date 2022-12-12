@@ -1,0 +1,78 @@
+{% layout none %}
+{
+	"slider": [
+
+             
+        {
+            "type": "collection_link",
+            "url": "mes-del-chocolate",
+            "image_url": "//cdn.shopify.com/s/files/1/2216/9173/files/Banner-mes-del-chocolate.jpg?v=1669129605",
+			"title": ""
+		},
+  
+        {
+            "type": "collection_link",
+            "url": "untables",
+            "image_url": "//cdn.shopify.com/s/files/1/2216/9173/files/BannerNuevosUntables_Promo.jpg?v=1670251865",
+			"title": ""
+		},
+
+        {
+            "type": "product_link",
+            "url": "caja-de-chocolates-2",
+            "image_url": "//cdn.shopify.com/s/files/1/2216/9173/files/Banner-caja-de-regalo.jpg?v=1669134058",
+			"title": ""
+		}, 	
+        {
+            "type": "collection_link",
+            "url": "kits-navidenos-1",
+            "image_url": "//cdn.shopify.com/s/files/1/2216/9173/files/Banner_kits_navidenos-01.jpg?v=1667845521",
+			"title": "¡El regalo perfecto!"
+		}, 	
+        
+        {
+            "type": "page_link",
+            "url": "https://estadonatural.com.mx/pages/despensa-sin-desperdicio",
+            "image_url": "//cdn.shopify.com/s/files/1/2216/9173/files/BannersJSD.jpg?v=1656684436",
+			"title": "Guía Despensa Sin Desperdicio"
+		},	
+
+		
+	],
+	"banner": "//cdn.shopify.com/s/files/1/2216/9173/files/3x2-Banner-Detergentes_1080x.jpg",
+	"categories": [	
+		{%- for link in linklists.mobile-categories.links -%}
+			{
+				"title": "{{ link.title }}",
+				"handle": "{{ link.title | handleize}}",
+				{%- assign child_list_handle = link.title | handleize -%}
+				{%- if linklists[child_list_handle].links != blank -%}
+				"collections": [
+					{%- for childlink in linklists[child_list_handle].links -%}
+						{
+							"id": "{{ childlink.object.id }}",
+							"title": "{{ childlink.title }}",
+							"handle": "{{ childlink.object.handle }}",
+							"type": "{{ childlink.type }}"
+						}{%- if forloop.last == false -%},{%- endif -%}
+					{%- endfor -%}
+				]
+				{%- else -%}
+				"handle": "{{ link.title | handleize }}",
+				"type": "{{ link.type }}"
+				{%- endif -%}
+			}{%- if forloop.last == false -%},{%- endif -%}
+
+		{%- endfor -%}
+	],
+	"collections": [
+      {%- for link in linklists.mobile-collections.links -%}
+		{
+			"id": "{{ link.object.id }}",
+			"handle": "{{ link.object.handle }}",
+			"title": "{{ link.title }}",
+			"image_url": "{{ link.object.image | img_url: '800x800' }}"
+		}{%- if forloop.last == false -%},{%- endif -%}
+      {%- endfor -%}
+	]
+}

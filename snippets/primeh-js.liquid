@@ -1,0 +1,198 @@
+<script type="text/javascript">
+	</script>
+    
+<script type="text/javascript">
+
+    var primeh1 = document.getElementsByClassName('1primehDesktop');
+    if(primeh1[0]){
+    } else {
+        var remove_div1 = document.getElementsByClassName('1primeHighlights');
+        if(remove_div1[0]){
+            remove_div1[0].parentNode.removeChild(remove_div1[0]);
+        }
+    }
+    var primeh2 = document.getElementsByClassName('2primehDesktop');
+    if(primeh2[0]){
+    } else {
+        var remove_div2 = document.getElementsByClassName('2primeHighlights');
+        if(remove_div2[0]){
+            remove_div2[0].parentNode.removeChild(remove_div2[0]);
+        }
+    }
+    var primeh3 = document.getElementsByClassName('3primehDesktop');
+    if(primeh3[0]){
+    } else {
+        var remove_div3 = document.getElementsByClassName('3primeHighlights');
+        if(remove_div3[0]){
+            remove_div3[0].parentNode.removeChild(remove_div3[0]);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+
+        primehonload();
+
+        var primehsku = '{{ProductSKU}}';
+        var skuclass = document.getElementsByClassName('primehsku');
+        if(primehsku == 0){
+            for (var i = 0; i < skuclass.length; i++) {
+                if(skuclass[i].dataset.sku == 0){
+                    var parentsku = skuclass[i].parentElement;
+                    var parent2sku = parentsku.parentElement;
+                    parent2sku.style.cssText = 'display:none !important';
+                }
+            }
+        }
+
+    })
+
+    
+    function redirectHighlightLink(highlightval,links) {
+
+        if(highlightval != ''){
+
+        // console.log('clicke');
+            var highlightlink = highlightval;
+            if(links == 0){
+                window.location.href = highlightlink;
+            }else{
+                window.open(highlightlink,'_blank');
+            }
+
+        }
+    
+    }
+
+    function toValidDateprime(datestring){
+        return datestring.replace(/(\d{2})(\/)(\d{2})/, "$3$2$1");   
+    }
+
+    function myTimerprime(newvalue,count) {
+
+        var primehText2 = document.getElementsByClassName('primehText');
+        var pos = newvalue.indexOf("CountdownTimer:");
+        var res = newvalue.slice(pos+15, pos+34);
+        newvalue = newvalue.replace("[[ CountdownTimer:", "" );
+        newvalue = newvalue.replace("]]", "" );
+
+        var x2 = setInterval(function() { 
+
+            let end = new Date(toValidDateprime(res));
+            let start = new Date();
+            var remaintime = end - start;
+            var days = Math.floor(remaintime / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((remaintime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((remaintime % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((remaintime % (1000 * 60)) / 1000);
+            var realtimeleft = days + "d "+hours + "h "+minutes + "m "+seconds + "s";
+            if(seconds < 0){
+                realtimeleft = "0d 0h 0m 0s";
+            }
+            primehText2[count].innerHTML = newvalue.replace(res,realtimeleft);
+            primehText2[count].classList.remove("prime-counter");
+            if (remaintime < 0) { 
+                clearInterval(x); 
+            } 
+        }, 1000); 
+
+    }
+
+    function primehonload() {
+
+        var primehText = document.getElementsByClassName('primehText');
+        setTimeout(function(){ 
+            if(primehText[0]){
+                for (var i = 0; i < primehText.length; i++) {
+                    var value = primehText[i].innerHTML;
+                    
+                    if( value.indexOf("CountdownTimer:") != -1  ){
+                        myTimerprime(value,i);
+                    }
+                }
+            } 
+        }, 1000);
+
+        var primeh1 = document.getElementsByClassName('1primehDesktop');
+        if(primeh1[0]){
+        } else {
+            var remove_div1 = document.getElementsByClassName('1primeHighlights');
+            if(remove_div1[0]){
+                remove_div1[0].parentNode.removeChild(remove_div1[0]);
+            }
+        }
+        var primeh2 = document.getElementsByClassName('2primehDesktop');
+        if(primeh2[0]){
+        } else {
+            var remove_div2 = document.getElementsByClassName('2primeHighlights');
+            if(remove_div2[0]){
+                remove_div2[0].parentNode.removeChild(remove_div2[0]);
+            }
+        }
+        var primeh3 = document.getElementsByClassName('3primehDesktop');
+        if(primeh3[0]){
+        } else {
+            var remove_div3 = document.getElementsByClassName('3primeHighlights');
+            if(remove_div3[0]){
+                remove_div3[0].parentNode.removeChild(remove_div3[0]);
+            }
+        }
+
+        setTimeout(function(){ 
+            var primeinstances = tippy('[data-tippy-content]');
+        }, 500);
+
+        if(countryh == 'primehighlightcountry'){
+            countryh = 'newprimehighlightcountry';
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+            
+                if (this.readyState == 4 && this.status == 200) {
+                    var mycountryh = this.responseText;
+                    var countryclassh = document.getElementsByClassName('primehCountry');
+            
+                    for (var i = 0; i < countryclassh.length; i++) {
+                        var counrtylisth = countryclassh[i].getAttribute('data-countryselectedh');
+                        var position = counrtylisth.search(mycountryh);
+                        if(position < 0){ 
+                            countryclassh[i].style.cssText = 'display:none !important';
+                            countryclassh[i].classList.add("removeme");
+                            // countryclassh[i].remove();
+                        }
+                    }
+                    var removeclass = document.getElementsByClassName('removeme');
+                    for (var i = 0; i < removeclass.length; i++) {
+                        removeclass[i].remove();
+                    }
+                    var highlightclass1 = document.getElementsByClassName('1primehDesktop');
+                    if(highlightclass1.length < 1){
+                        var maindiv1 = document.getElementsByClassName('1primeHighlights');
+                        if(maindiv1[0]){
+                            maindiv1[0].remove();
+                        }
+                    }
+                    var highlightclass2 = document.getElementsByClassName('2primehDesktop');
+                    if(highlightclass2.length < 1){
+                        var maindiv2 = document.getElementsByClassName('2primeHighlights');
+                        if(maindiv2[0]){
+                            maindiv2[0].remove();
+                        }
+                    }
+                    var highlightclass3 = document.getElementsByClassName('3primehDesktop');
+                    if(highlightclass3.length < 1){
+                        var maindiv3 = document.getElementsByClassName('3primeHighlights');
+                        if(maindiv3[0]){
+                            maindiv3[0].remove();
+                        }
+                    }
+                    
+                }
+            };
+            xhttp.open("GET", "https://geo.thalia.workers.dev/", true);
+            xhttp.send();
+            
+        }
+
+    }
+
+
+</script>

@@ -1,0 +1,27 @@
+
+<!-- sh_hub-added -->
+{% render 'sh_hub-product-snippet' %}
+<!-- /sh_hub-added -->
+{% comment %}
+  The contents of the product.liquid template can be found in /sections/product-template.liquid
+{% endcomment %}
+
+{% section 'product-template' %}
+{% section 'related-products' %}
+
+<script>
+  // Override default values of shop.strings for each template.
+  // Alternate product templates can change values of
+  // add to cart button, sold out, and unavailable states here.
+  theme.productStrings = {
+    addToCart: {{ 'products.product.add_to_cart' | t | json }},
+    soldOut: {{ 'products.product.sold_out' | t | json }},
+    unavailable: {{ 'products.product.unavailable' | t | json }}
+  }
+</script>
+
+			<!-- PERFECT AUDIENCE INTEGRATION START -->
+			{% include 'perfect-audience-product' %}
+			<!-- PERFECT AUDIENCE INTEGRATION END -->
+		
+{% include 'easy_suggestion' %}

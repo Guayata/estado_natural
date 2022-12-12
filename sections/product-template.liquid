@@ -1,0 +1,527 @@
+<link rel="preload" href="{{ "section-template-product.scss.css" | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<link href="https://fonts.cdnfonts.com/css/orator-std" rel="stylesheet">
+<noscript><link rel="stylesheet" href="{{ "section-template-product.scss.css" | asset_url }}"></noscript>
+<div class="content-image-absolute-top">
+  <img src="{{ "image-absolute-product.png" | asset_url }}" alt="" class="img-fluid">
+</div>
+<div class="container-fluid content-box-description-product">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-10">
+      <div class="product-template__container" itemscope itemtype="http://schema.org/Product" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true">{% render 'preorder-now-collection-item', product: product %}
+        <meta itemprop="name" content="{{ product.title }}">
+        <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+        <meta itemprop="image" content="{{ product.featured_image.src | img_url: '800x' }}">
+        {% comment %}
+					Get first variant, or deep linked one
+				{% endcomment %}
+        {%- assign current_variant = product.selected_or_first_available_variant -%}
+        {%- assign product_image_zoom_size = '1024x1024' -%}
+        {%- assign product_image_scale = '2' -%}
+        {%- assign enable_zoom = section.settings.enable_zoom -%}
+
+        {% case section.settings.image_size %}
+          {% when 'small' %}
+            {%- assign product_image_width = 'medium-up--one-third' -%}
+            {%- assign product_description_width = 'medium-up--two-thirds' -%}
+            {%- assign product_thumbnail_width = 'medium-up--one-third' -%}
+            {%- assign height = 345 -%}
+          {% when 'medium' %}
+            {%- assign product_image_width = 'medium-up--one-half' -%}
+            {%- assign product_description_width = 'medium-up--one-half' -%}
+            {%- assign product_thumbnail_width = 'medium-up--one-quarter' -%}
+            {%- assign height = 530 -%}
+          {% when 'large' %}
+            {%- assign product_image_width = 'medium-up--two-thirds' -%}
+            {%- assign product_description_width = 'medium-up--one-third' -%}
+            {%- assign product_thumbnail_width = 'medium-up--one-fifth' -%}
+            {%- assign height = 720 -%}
+          {% when 'full' %}
+            {%- assign product_image_width = '' -%}
+            {%- assign product_description_width = '' -%}
+            {%- assign product_thumbnail_width = 'medium-up--one-eighth' -%}
+            {%- assign height = 1090 -%}
+            {%- assign enable_zoom = false -%}
+        {% endcase %}
+
+        {% assign types_to_check = "accesorios,servicio,recetas,paquetes,eventos,untables,higiene personal,pan y tortillas" | split:"," %}
+        {% assign product_type = product.type | downcase %}
+
+        <div class="grid product-single">
+          <div class="row">
+            <div class="col-12 col-lg-6 content-image-product-box">
+              <div class="image-absolute-right-inside">
+                <img src="{{ "parche.png" | asset_url }}" alt="Parche" class="img-fluid">
+              </div>
+              <div class="row">
+                <div class="col-12 content-product-featured">
+                  {%- assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image -%}
+                  {% for media in product.media %}
+                    {% include 'media', media: media, image: media %}
+                  {% endfor %}
+                  <noscript>
+                    <img src="{{ featured_image | img_url: "master" }}" alt="{{ featured_image.alt }}" id="FeaturedImage-{{ section.id }}" class="img-fluid w-100">
+                  </noscript>
+                </div>
+              </div>
+              <div class="grid__item product-single__photos {{ product_image_width }}{% if section.settings.image_size == 'full' %} product-single__photos--full{% endif %}">
+
+
+                {% if product.media.size > 1 %}
+                  {% if product.media.size > 3 %}
+                    {%- assign enable_thumbnail_slides = true -%}
+                  {% endif %}
+
+                  <div class="thumbnails-wrapper{% if enable_thumbnail_slides == true %} thumbnails-slider--active{% endif %}">
+                    {% if enable_thumbnail_slides == true %}
+                      <button type="button" class="btn btn--link medium-up--hide thumbnails-slider__btn thumbnails-slider__prev thumbnails-slider__prev--{{ section.id }}">
+                        {% include 'icon-chevron-left' %}
+                        <span class="icon__fallback-text">{{ 'sections.slideshow.previous_slide' | t }}</span>
+                      </button>
+                    {% endif %}
+                    <div class="grid grid--uniform product-single__thumbnails product-single__thumbnails-{{ section.id }} slider-thumbnails-nav">
+                      {% for media in product.media %}
+                        <div class="grid__item product-single__thumbnails-item js">
+                          <a href="{{ media.src | img_url: product_image_zoom_size, scale: product_image_scale }}"
+                             class="text-link product-single__thumbnail product-single__thumbnail--{{ section.id }}"
+                             data-thumbnail-id="{{ media.id }}"
+                             {% if enable_zoom %}data-zoom="{{ media.src | img_url: product_image_zoom_size, scale: product_image_scale }}"{% endif %}>
+                            <img class="product-single__thumbnail-image {% if media.media_type contains 'external' %}ext-video{% endif %}" src="{{ media | img_url: '110x110', scale: 2 }}" alt="{{ media.alt | escape }}">
+                            {% if media.media_type contains 'video' %}
+                              <div class="product-single__thumbnail-badge">
+                                {% include 'icon-video-badge-full-color' %}
+                              </div>
+                            {% endif %}
+                          </a>
+                        </div>
+                      {% endfor %}
+                    </div>
+                    {% if enable_thumbnail_slides == true %}
+                      <button type="button" class="btn btn--link medium-up--hide thumbnails-slider__btn thumbnails-slider__next thumbnails-slider__next--{{ section.id }}">
+                        {% include 'icon-chevron-right' %}
+                        <span class="icon__fallback-text">{{ 'sections.slideshow.next_slide' | t }}</span>
+                      </button>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-12 col-lg-6 grid__item">
+              <div class="product-single__meta">
+                  <h1 itemprop="name" class="product-single__title">{{ product.title }}</h1>
+                  <div class="content-subtitle">
+                    {{ product.metafields.natural.subtitulo_productos }}
+                  </div>
+                  {% if section.settings.show_vendor %}
+                    <p itemprop="brand" class="product-single__vendor">{{ product.vendor }}</p>
+                  {% endif %}
+
+                  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                    <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+
+                    <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+
+                    <p class="product-single__price product-single__price-{{ section.id }}{% unless current_variant.available %} product-price--sold-out{% endunless %}">
+                      {% if current_variant.compare_at_price > current_variant.price %}
+                        <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+                        <s id="ComparePrice-{{ section.id }}">{{ current_variant.compare_at_price | money }}</s>
+                        <span class="product-price__price product-price__price-{{ section.id }} product-price__sale product-price__sale--single">
+                  <span id="ProductPrice-{{ section.id }}"
+                        itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+                    {{ current_variant.price | money }}
+                  </span>
+                  <span class="product-price__sale-label product-price__sale-label-{{ section.id }}">{{ 'products.product.on_sale' | t }}</span>
+                </span>
+                      {% else %}
+                        <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+                        <s id="ComparePrice-{{ section.id }}" class="hide">{{ current_variant.compare_at_price | money }}</s>
+                        <span class="product-price__price product-price__price-{{ section.id }}">
+                <span id="ProductPrice-{{ section.id }}"
+                      itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+                  {% if product.tags contains 'xgramaje' %}
+                    {{ current_variant.price | money }} por gramo / {{ current_variant.price | times: 100 | money }} por 100 gramos
+                  {% else %}
+                    {{ current_variant.price | money }}
+                  {% endif %}
+                </span>
+                <span class="product-price__sale-label product-price__sale-label-{{ section.id }} hide">{{ 'products.product.on_sale' | t }}</span>
+              </span>
+                      {% endif %}
+                    </p>
+
+
+                  </div>
+                <form action="/cart/add" method="post" enctype="multipart/form-data" class="product-form product-form-{{ section.id }}{% unless section.settings.show_variant_labels %} product-form--hide-variant-labels{% endunless %}" data-section="{{ section.id }}">
+                  <script data-app="esc-out-of-stock" type="text/json">[{% for variant in product.variants %}{"id":{{ variant.id }},"title":"{{ variant.title }}","option1":{% if variant.option1 %}"{{ variant.option1 }}"{% else %}null{% endif %},"option2":{% if variant.option2 %}"{{ variant.option2 }}"{% else %}null{% endif %},"option3":{% if variant.option3 %}"{{ variant.option3 }}"{% else %}null{% endif %},"sku":{% if variant.sku %}"{{ variant.sku }}"{% else %}null{% endif %},"requires_shipping":{{ variant.requires_shipping }},"taxable":{{ variant.taxable }},"featured_image":{% if variant.featured_image %}"{{ variant.featured_image }}"{% else %}null{% endif %},"available":{{ variant.available }},"name":"{{ variant.name }}","public_title":"{{ variant.public_title }}","options":{{ variant.options | json }},"price":{{ variant.price }},"weight":{% if variant.weight %}{{ variant.weight }}{% else %}0{% endif %},"compare_at_price":{% if variant.compare_at_price %}{{ variant.compare_at_price }}{% else %}null{% endif %},"inventory_quantity":{{ variant.inventory_quantity }},"inventory_management":{% if variant.inventory_management %}"{{ variant.inventory_management }}"{% else %}null{% endif %},"inventory_policy":{% if variant.inventory_policy %}"{{ variant.inventory_policy }}"{% else %}null{% endif %},"barcode":{% if variant.barcode %}"{{ variant.barcode }}"{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}{% endfor %}]</script>
+                  {% unless product.options.size == 1 and product.variants[0].title == 'Default Title' %}
+                    {% for option in product.options_with_values %}
+                      <div class="selector-wrapper js product-form__item">
+                        <label {% if option.name == 'default' %}class="label--hidden" {% endif %}for="SingleOptionSelector-{{ forloop.index0 }}">
+                          {{ option.name }}
+                        </label>
+                        <select class="single-option-selector single-option-selector-{{ section.id }} product-form__input" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
+                          {% for value in option.values %}
+                            <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    {% endfor %}
+                  {% endunless %}
+
+                  <select name="id" id="ProductSelect-{{ section.id }}" data-section="{{ section.id }}" class="product-form__variants no-js">
+                    {% for variant in product.variants %}
+                      {% if variant.available %}
+                        <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
+                          {{ variant.title }}
+                        </option>
+                      {% else %}
+                        <option disabled="disabled">{{ variant.title }} - {{ 'products.product.sold_out' | t }}</option>
+                      {% endif %}
+                    {% endfor %}
+                  </select>
+
+                  {% assign total = 0 %}
+                  {% for variant in product.variants %}
+                    {% assign total = total | plus: variant.inventory_quantity %}
+                  {% endfor %}
+
+                  <input type="hidden" id="actualQty" value="{{ total }}" max="{{ total }}">
+
+                  {% if product.tags contains 'xgramaje' %}
+                    <div class="weight-selector">
+                      <p>Selección rápida (grs.)</p>
+                      {% assign temp = total|minus: 50%}
+                      {% if temp > 0 %}
+                        <a onclick="" value="50" class="quick-qty btn product-form__cart-submit product-form__cart-submit--small">
+                          <span>50</span>
+                        </a>
+                      {% endif %}
+                      {% assign temp = total|minus: 100%}
+                      {% if temp > 0 %}
+                        <a onclick="" value="100" class="quick-qty btn product-form__cart-submit product-form__cart-submit--small">
+                          <span>100</span>
+                        </a>
+                      {% endif %}
+                      {% assign temp = total|minus: 250%}
+                      {% if temp > 0 %}
+                        <a onclick="" value="250" class="quick-qty btn product-form__cart-submit product-form__cart-submit--small">
+                          <span>250</span>
+                        </a>
+                      {% endif %}
+                      {% assign temp = total|minus: 500%}
+                      {% if temp > 0 %}
+                        <a onclick="" value="500" class="quick-qty btn product-form__cart-submit product-form__cart-submit--small">
+                          <span>500</span>
+                        </a>
+                      {% endif %}
+                      {% assign temp = total|minus: 750%}
+                      {% if temp > 0 %}
+                        <a onclick="" value="750" class="quick-qty btn product-form__cart-submit product-form__cart-submit--small">
+                          <span>750</span>
+                        </a>
+                      {% endif %}
+                      {% assign temp = total|minus: 1000%}
+                      {% if temp > 0 %}
+                        <a onclick="" value="1000" class="quick-qty btn product-form__cart-submit product-form__cart-submit--small">
+                          <span>1000</span>
+                        </a>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+
+                  {% if section.settings.show_quantity_selector %}
+
+                    {% if product.tags contains 'xgramaje' %}
+                      <div style="width: 100%;margin: 20px 10px 5px;">
+                        <label for="Quantity">O ingresa la cantidad deseada</label>
+                      </div>
+                    {% endif%}
+                    <div class="col-12">
+                        <div class="product-form__item product-form__item--quantity row">
+                          <div class="col-6 col-sm-6 quantify">
+                            {% unless product.tags contains 'xgramaje' %}
+                              <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
+                            {% endunless %}
+
+                            <input type="number" id="Quantity" name="quantity" value="1" min="1" class="product-form__input" pattern="[0-9]*">
+                          </div>
+                          <div class="col-6 col-sm-6 text-sm-right">
+
+                            {% if product.tags contains 'xgramaje' %}
+                              <span class="subtotal" data-price="{{ current_variant.price | money }}">
+                  <span>grs.</span>
+                  <span class="set">({{ current_variant.price | money }})</span>
+                </span>
+                            {% else %}
+                              <span class="subtotal" data-price="{{ current_variant.price | money }}">
+                  <span>pzs.</span>
+                  <span class="set">({{ current_variant.price | money }})</span>
+                </span>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+
+                  {% endif %}
+
+
+
+
+    <div class="col-12">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="product-form__item product-form__item--submit">
+                          <button type="submit" name="add" id="AddToCart-{{ section.id }}" {% unless current_variant.available %}disabled="disabled"{% endunless %} class="btn product-form__cart-submit{% if product.options.size == 1 and product.variants[0].title == 'Default Title' %} product-form__cart-submit--small{% endif %}">
+                <span id="AddToCartText-{{ section.id }}">
+                  {% unless current_variant.available %}
+                    {{ 'products.product.sold_out' | t }}
+                  {% else %}
+                    {{ 'products.product.add_to_cart' | t }}
+                  {% endunless %}
+                </span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+                  {%- assign nutritional = product.metafields.Nutricional -%}
+                  {%- assign key = 'nutritional_info' -%}
+                  {%- assign nutritional_text = nutritional.nutritional_info -%}
+
+                  {%- assign benefits = product.metafields.Beneficios -%}
+                  {%- assign key = 'uses_benefits ' -%}
+                  {%- assign benefits_text = benefits.uses_benefits -%}
+
+                  {%- assign recipes = product.metafields.Recetas -%}
+                  {%- assign key = 'recipes ' -%}
+                  {%- assign recipes_text = recipes.recipes -%}
+
+                  <!--<div style="margin: 20px 0;">
+										<span class="badge">No hay mínimo de compra</span>
+									</div>-->
+
+                  <div class="product-single__description product-collapses large-up--hide" itemprop="description">
+
+                    <h3 class="collapse-header active">Descripción </h3>
+                    <div class="collapse-content">{{ product.description }}</div>
+
+                    {% if nutritional_text != blank %}
+                      <h3 class="collapse-header">Información nutricional</h3>
+                      <div class="collapse-content">{{ nutritional_text }}</div>
+                    {% endif %}
+
+                    {% if benefits_text != blank %}
+                      <h3 class="collapse-header">Usos y beneficios</h3>
+                      <div class="collapse-content">{{ benefits_text }}</div>
+                    {% endif %}
+
+                    {% if recipes_text != blank %}
+                      <h3 class="collapse-header">Recetas</h3>
+                      <div class="collapse-content">{{ recipes_text }}</div>
+                    {% endif %}
+
+                  </div>
+
+                  <div class="product-single__description product-tabs large-up--show" itemprop="description">
+                    <ul class="tabs-header-container">
+                      <li class="" data-rel="#description">Descripción </li>
+                      {% if nutritional_text != blank %}
+                        <li data-rel="#nutritional_info">Información nutricional</li>
+                      {% endif %}
+                      {% if benefits_text != blank %}
+                        <li data-rel="#uses_benefits">Usos y beneficios</li>
+                      {% endif %}
+                      {% if recipes_text != blank %}
+                        <li data-rel="#recipes">Recetas</li>
+                      {% endif %}
+                    </ul>
+
+                    <div class="tabs-content-container">
+                      <div class="tab-content" id="description">
+                        {{ product.description }}
+                      </div>
+
+                      {% if nutritional_text != blank %}
+                        <div class="tab-content with-white-space" id="nutritional_info">{{ nutritional_text }}</div>
+                      {% endif %}
+
+                      {% if benefits_text != blank %}
+                        <div class="tab-content with-white-space" id="uses_benefits">{{ benefits_text  }}</div>
+                      {% endif %}
+
+                      {% if recipes_text != blank %}
+                        <div class="tab-content with-white-space" id="recipes">{{ recipes_text  }}</div>
+                      {% endif %}
+
+                    </div>
+
+                  </div>
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-12 col-lg-6">
+                        {% if section.settings.show_share_buttons %}
+                          {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid content-box-using-instructions d-none">
+  <div class="row">
+    <div class="col-12">
+      <div class="content-title text-center">
+        <span>
+          mil maneras de usarlo <br>
+            <svg xmlns="http://www.w3.org/2000/svg" width="443.062" height="5.505" viewBox="0 0 443.062 5.505">
+  <path id="Trazado_5295" data-name="Trazado 5295" d="M497,1655s199-9,443,0" transform="translate(-496.966 -1650.245)" fill="none" stroke="#b07f49" stroke-width="1.5"/>
+</svg>
+        </span>
+      </div>
+      <div class="row justify-content-center">
+       <div class="col-12 col-lg-10 col-xl-8">
+         <div class="row">
+           {% if product.metafields.natural.imagen_instrucciones != blank %}
+             <div class="col-12 col-lg-5 content-image">
+                 <img src="{{ product.metafields.natural.imagen_instrucciones | img_url:"master" }}" alt="Imagen instrucciones" class="w-100 img-fluid">
+             </div>
+           {% endif %}
+           <div class="col-12 col-lg-6 offset-lg-1">
+             <div class="content-steps">
+               {% if product.metafields.natural.titulo_receta != blank %}
+                 <div class="content-title-step">
+                   {{ product.metafields.natural.titulo_receta }}
+                 </div>
+               {% endif %}
+               <div class="content-title-ingredients">
+                 INGREDIENTES
+               </div>
+               {% if product.metafields.natural.ingredientes_lista != blank %}
+                 <div class="content-description-ingredients">
+                   {{ product.metafields.natural.ingredientes_lista }}
+                 </div>
+               {% endif %}
+               {% if product.metafields.natural.procedimiento_receta != blank %}
+                 <div class="content-process-description">
+                   {{ product.metafields.natural.procedimiento_receta }}
+                 </div>
+               {% endif %}
+             </div>
+           </div>
+         </div>
+       </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid content-box-reviews">
+  <div class="content-image-absolute-left">
+    <img src="{{ "rev-1.png" | asset_url }}" alt="" class="img-fluid">
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+      {% comment %}Start automatically added Judge.me widget{% endcomment %}
+      {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true, product: product %}
+      {% comment %}End automatically added Judge.me widget{% endcomment %}
+    </div>
+  </div>
+  <div class="content-image-absolute-right">
+    <img src="{{ "rev-2.png" | asset_url }}" alt="" class="img-fluid">
+  </div>
+</div>
+{% comment %}
+{% if collection %}
+  <div class="text-center return-link-wrapper">
+    <a href="{{ collection.url }}" class="btn btn--secondary btn--has-icon-before return-link">
+      {% include 'icon-arrow-left' %}
+      {{ 'products.product.back_to_collection' | t: title: collection.title }}
+    </a>
+  </div>
+{% endif %}{% endcomment %}
+
+
+
+{% unless product == empty %}
+  <script type="application/json" id="ProductJson-{{ section.id }}">
+    {{ product | json }}
+  </script>
+
+
+
+<script>
+
+</script>
+{% endunless %}
+
+{% schema %}
+  {
+    "name": "Product pages",
+    "class": "section-template-product",
+    "settings": [
+      {
+        "type": "select",
+        "id": "image_size",
+        "label": "Image size",
+        "options": [
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "medium",
+            "label": "Medium"
+          },
+          {
+            "value": "large",
+            "label": "Large"
+          },
+          {
+            "value": "full",
+            "label": "Full-width"
+          }
+        ],
+        "default": "medium"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_quantity_selector",
+        "label": "Show quantity selector",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_variant_labels",
+        "label": "Show variant labels",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show vendor",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_zoom",
+        "label": "Enable image zoom",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": "Show social sharing buttons",
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

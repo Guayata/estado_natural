@@ -1,0 +1,181 @@
+<!--LH-SECTION-->
+<section id="" data-section-id="22cl7mvb3kw" data-section="product-slider-6" data-dev="trong-dai" data-lh-page-id="520" data-lh-page-name="Homepage - Tankto" data-layouthub="section">  
+ <div class="lh-oh">
+  <div class="lh-container">
+    <div class="lh-row">
+      <div class="lh-product-content lh-col-md-12 lh-no-sidebar" >
+        <div class="lh-row">
+          <div class="lh-info-wrapper b_hide bad_disable ellipsis" data-hub-attr-state="class%3D%22lh-info-wrapper%20%257B%253A%257Bsection.settings.button_action%257D%253A%257D%20%257B%253A%257Bsection.settings.button_badges%257D%253A%257D%20%257B%253A%257Bsection.settings.name_product%257D%253A%257D%22"  data-hub-attr-button_action  data-hub-attr-button_badges  data-hub-attr-name_product >
+          <include data-live-related_heading data-live-desc data-live-nav data-live-dots data-name="product-grid" data-id="1">  
+ <div class="lh-col-md-12 lh-product-grid">
+	<div class="lh-collection-heading">
+		<h3 class="lh-collection-title"  data-lhi="related_heading" data-lh-lang>{{'22cl7mvb3kw.lh_k191aj_heading' | t }}</h3>
+		<p  data-lhi="desc" data-lh-lang>{{'22cl7mvb3kw.desc_html' | t }}</p>
+	</div>
+	<div class="lh-product-slider lh-product-related swiper-container" data-navigation='{"nextEl":".swiper-button-next","prevEl":".swiper-button-prev"}'>
+		<div class="swiper-wrapper owl-carousel owl-theme">
+			{% assign current = collections['nuevos-productos'] %}
+			 
+
+			{% assign limit = 10 %}
+
+			{% for product in current.products limit:limit %}
+			{% assign first_variant = product.selected_or_first_available_variant %}
+			<div class="swiper-slide">
+				<div class="lh-collection-item">
+					<div class="lh-product-thumb">
+						
+						<a href="{{product.url | within: collection}}">
+							 
+								<img src="{{ product.featured_image | img_url: '500x500_crop_center' }}" alt="{{product.title}}">
+								{% if product.images.size > 1 %}
+									<img src="{{product.images[1] | img_url : '500x500_crop_center' }}" class="lh-img-hover" alt="{{product.title}}">
+								{% else %}
+									<img src="{{product.featured_image | img_url: '500x500_crop_center' }}" class="lh-img-hover" alt="{{product.title}}">
+								{% endif %}
+							 
+						</a>
+						<div class="lh-product-icon">
+ 
+							<div class="lh-icon lh-wrap-wishlist" >
+								{%- capture wishlist_content -%}
+									<a href="javascript:void(0)">
+										<img src="{{'22cl7mvb3kw_heart.svg' | asset_url }}" alt="icon" class="icon-product">
+										<span class="lh-tooltip"  data-lhi="trans_wishlist" data-lh-lang>{{'22cl7mvb3kw.lh_up5omg_wishlist' | t }}</span>
+									</a>
+								{%- endcapture -%}
+								{%- render 'layouthub_wishlist', wishlist_content:wishlist_content, wishlist_type: 'other',product: product -%}
+							</div>
+							<div class="lh-icon lh-wrap-quickview">
+								{%- capture quickview_content -%}
+									<a href="javascript:void(0)">
+										<img src="{{'22cl7mvb3kw_eye.svg' | asset_url }}" alt="icon" class="icon-product">
+										<span class="lh-tooltip"  data-lhi="trans_quickview" data-lh-lang>{{'22cl7mvb3kw.lh_up5omg_quickview' | t }}</span>
+									</a>
+								{%- endcapture -%}
+								{%- render 'layouthub_quickview', quickview_content: quickview_content, product: product -%}
+							</div>
+							{% if product.available %}
+							{% if product.variants.size > 1 %}
+							<div class="lh-icon add-to-cart-btn">
+								<a href="{{ product.url | within: collection }}"  data-pid="{{product.id}}">
+									<img src="{{'22cl7mvb3kw_cart.svg' | asset_url }}" alt="icon" class="icon-product">
+									<span class="lh-tooltip"  data-lhi="informations_text" data-lh-lang>{{'22cl7mvb3kw.lh_mn5sih_text' | t }}</span>
+								</a>
+							</div>
+							{% else %}
+							<div class="lh-icon add-to-cart-btn">
+								<a href="/cart/add/{{product.variants.first.id}}"  data-pid="{{product.id}}">
+									<img src="{{'22cl7mvb3kw_cart.svg' | asset_url }}" alt="icon" class="icon-product">
+									<span class="lh-tooltip"  data-lhi="addcart_text" data-lh-lang>{{'22cl7mvb3kw.lh_w8inz3_text' | t }}</span>
+								</a>
+							</div>
+							{% endif %}
+						{% else %}
+							<div class="lh-icon add-to-cart-btn">
+								<a href="{{ product.url | within: collection }}" data-pid="{{product.id}}">
+									<img src="{{'22cl7mvb3kw_cart.svg' | asset_url }}" alt="icon" class="icon-product">
+									<span class="lh-tooltip"  data-lhi="viewmore_text" data-lh-lang>{{'22cl7mvb3kw.lh_5fk6iu_text' | t }}</span>
+								</a>
+							</div>
+						{% endif %}
+								
+					  </div>
+
+						<div class="lh-product-badges">
+							{% if first_variant.available == false %}
+								<span class="lh-sold-out"   data-lhi="soldout_text" data-lh-lang>{{'22cl7mvb3kw.lh_aod0fu_text' | t }}</span>
+							{% else %}
+								{% if first_variant.price < first_variant.compare_at_price and first_variant.available %}
+									<span class="lh-onsale"   data-lhi="text_sale" data-lh-lang>{{'22cl7mvb3kw.lh_hifzh_sale' | t }}</span>
+								{% endif %}
+								
+								{%- for tag in product.tags -%}
+									{%- if tag == 'new' -%}
+										<span class="lh-hot"   data-lhi="trans_new_text" data-lh-lang>{{'22cl7mvb3kw.lh_rv7qtl_text' | t }}</span>
+										{%- break -%}
+									{%- endif -%}
+								{%- endfor -%}
+							{% endif %}
+						</div>
+					</div>
+					
+					<div class="lh-product-info ">
+						<h3 class="lh-product-title">
+							<a href="{{product.url | within: collection}}">{{product.title}}</a>
+						</h3>
+						<div class="lh-wrap-price">
+							{% if first_variant.compare_at_price > 0 and first_variant.compare_at_price > first_variant.price %}
+							<span class="lh-sale lh-price-set">{{first_variant.compare_at_price | money}}</span>
+							{% endif %}
+							<span class="lh-cost lh-price-set">{{first_variant.price | money}}</span>
+						</div>
+											
+					</div>
+				</div>
+			</div>
+			{% endfor %}</div>
+	 
+	</div>
+</div>
+
+   </include></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+ 
+  </section><!--/LH-SECTION-->{%schema%}
+{
+    "name": "Product slider",
+    "settings": [
+        {
+            "type": "header",
+            "content": "The section generated by [LayoutHub](https:\/\/www.layouthub.com).",
+            "info": "LayoutHub provides tons of pre-built Layouts and Blocks\/Sections and focus on the simplicity for content editing, to help the merchants easy to build a nice store with drag, sorting and edit content only. "
+        },
+        {
+            "type": "paragraph",
+            "content": "Edit this section [here](https:\/\/app.layouthub.com\/editor?page=page&id=5edfb982189131762a3bb1e2)"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Product slider",
+            "category": "LayoutHub"
+        }
+    ],
+    "locales": {
+        "es": {
+            "22cl7mvb3kw": {
+                "lh_up5omg_wishlist": "Add To Wishlist",
+                "lh_up5omg_quickview": "Quick View",
+                "lh_mn5sih_text": "Informations",
+                "lh_w8inz3_text": "Add to cart",
+                "lh_5fk6iu_text": "View more",
+                "lh_aod0fu_text": "Sold out",
+                "lh_hifzh_sale": "Sale!",
+                "lh_rv7qtl_text": "New",
+                "lh_k191aj_heading": "\u00a1conoce nuestro nuevos productos!",
+                "desc_html": "Don't miss today's featured deals<!--lh-live-editor-->"
+            }
+        },
+        "en": {
+            "22cl7mvb3kw": {
+                "lh_up5omg_wishlist": "Add To Wishlist",
+                "lh_up5omg_quickview": "Quick View",
+                "lh_mn5sih_text": "Informations",
+                "lh_w8inz3_text": "Add to cart",
+                "lh_5fk6iu_text": "View more",
+                "lh_aod0fu_text": "Sold out",
+                "lh_hifzh_sale": "Sale!",
+                "lh_rv7qtl_text": "New",
+                "lh_k191aj_heading": "\u00a1conoce nuestro nuevos productos!",
+                "desc_html": "Don't miss today's featured deals<!--lh-live-editor-->"
+            }
+        }
+    }
+}
+{%endschema%}

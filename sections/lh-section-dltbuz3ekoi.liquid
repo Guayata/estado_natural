@@ -1,0 +1,241 @@
+<!--LH-SECTION-->
+<section id="" data-section-id="dltbuz3ekoi" data-section="product-related-4" data-dev="huynh-duc" data-layouthub="section">  
+ <div class="lh-wrapper">
+   <div class="lh-container">
+    <div class="lh-row">
+      <div class="lh-product-content lh-col-md-12 lh-no-sidebar" >
+        <div class="lh-row">
+          <div class="lh-info-wrapper">
+          <include data-name="product-grid" data-id="1">  
+ <div class="lh-col-md-12 lh-product-grid">
+	<div class="lh-collection-heading">
+		<h3 class="lh-collection-title"  data-lhi="related_heading" data-lh-lang>{{'dltbuz3ekoi.mu8pjv_heading' | t }}</h3>
+		<div class="clearfix"></div>
+		<span class="lh-collection-des"  data-lhi="related_des" data-lh-lang>{{'dltbuz3ekoi.mu8pjv_des' | t }}</span>
+	</div>
+	<div class="lh-product-slider lh-product-related n_full lh-badge-no" data-product_id="{{- product.id -}}" data-money-format="{{shop.money_format}}" >
+		<div class="owl-carousel owl-theme">
+			{% assign arr_product = collections['kits-y-regalos'].products %}
+			 
+			{% assign text_handle_temp = "" %}
+			{%- for p in arr_product -%}
+				{% assign text_handle_temp = text_handle_temp | append: "," | append : p.handle %}
+			{%- endfor -%}
+			{% assign limit = 8%}
+			{% assign count = 1 %}
+			{% if product and template contains 'product' %}
+				{% assign text_handle = "" %}
+				{%- if product.collections.size > 0 -%}
+						{%- for item_c in product.collections -%}
+							{%- for item_p in item_c.products -%}
+								{%- if count <= limit -%}
+									{%- if item_p.handle != product.handle -%}
+										{% assign count = count | plus : 1 %}
+										{% assign text_handle = text_handle | append: "," | append: item_p.handle %}
+									{%- endif -%}
+								{%- endif -%}
+							{%- endfor -%}
+						{%- endfor -%}
+				{%- endif -%}
+				{%- if count < limit -%}
+					{% assign p_realted = collections['all'].products | where: "vendor", product.vendor | where: "type", product.type %}
+					{%- for item_p in p_realted -%}
+						{%- if count <= limit -%}
+							{%- if item_p.handle != product.handle -%}
+								{% assign count = count | plus : 1 %}
+								{% assign text_handle = text_handle | append: "," | append: item_p.handle %}
+							{%- endif -%}
+						{%- endif -%}
+					{%- endfor -%}
+				{%- endif -%}
+			{% endif %}
+			{%- if text_handle != blank -%}
+				{% assign arr_handle = text_handle | split: "," %}
+			{%- else -%}
+				{% assign arr_handle = text_handle_temp | split: "," %}
+			{%- endif -%}
+			{% assign arr_handle = arr_handle | uniq %}
+			{% assign limit = limit | plus : 1 %}
+			{% for item in arr_handle limit:limit %}
+					{%- if item == blank -%}
+						{%- continue -%}
+					{%- endif -%}
+					{% assign i_product = all_products[item] %}
+					{% assign first_variant = i_product.selected_or_first_available_variant %}
+					<div class="lh-collection-item">
+						<div class="lh-product-thumb">
+							<a href="{{i_product.url | within: collection}}">
+								 
+									<img src="{{ i_product.featured_image | img_url: '540x540_crop_center' }}" alt="{{i_product.title}}">
+									{% if i_product.images.size > 1 %}
+										<img src="{{i_product.images[1] | img_url : '540x540_crop_center' }}" class="lh-img-hover" alt="{{i_product.title}}">
+									{% else %}
+										<img src="{{i_product.featured_image | img_url: '540x540_crop_center' }}" class="lh-img-hover" alt="{{i_product.title}}">
+									{% endif %}
+								 
+							</a>
+							<div class="lh-produc-grid-actions">
+									<div class="lh-icon hint--top hint-bounce lh-block-wl" aria-label=""  >
+										{%- capture wishlist_content -%}
+										<a href="javascript:void(0)" class="lh-button-wl">
+											<svg version="1.1" width="15" height="15" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+												viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
+											<path fill="currentColor" d="M90.4,14.9c-5-5-11.6-7.7-18.7-7.7c-7.1,0-13.8,2.7-18.7,7.7l-3,3l-3-3c-5-4.8-11.8-7.6-18.6-7.6c-7.1,0-13.7,2.7-18.7,7.6
+											 C-0.7,25.2-0.7,42,9.7,52.4l15.8,15.8l5.9,5.9l0.2,0.2L50.3,93L69,74.3l16.8-17l4.9-4.9c4.9-4.9,7.7-11.6,7.7-18.7
+											 C98.1,26.5,95.4,19.8,90.4,14.9z M86.5,48.3l-5,5l-16.7,17L50.1,85.1L35.4,70.3l-0.2-0.2l-5.9-5.9L13.6,48.5
+											 c-8.2-8.2-8.2-21.5,0-29.7c3.9-3.9,9.1-6,14.8-6c5.4,0,10.8,2.2,14.8,6l6.9,6.9l6.9-6.9c3.9-3.9,9.2-6.1,14.8-6.1
+											 c5.6,0,10.9,2.2,14.8,6.1c3.9,3.9,6,9.1,6,14.8C92.6,39.2,90.4,44.4,86.5,48.3z"></path>
+											</svg>
+										</a>
+										{%- endcapture -%}
+										{%- render 'layouthub_wishlist', wishlist_content: wishlist_content, product: i_product -%}
+									</div>
+									<div class="lh-icon hint--top hint-bounce" aria-label=""  >
+										{%- capture quickview_content -%}
+										<a href="javascript:void(0)">
+											<svg version="1.1" width="18" height="18" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+												 viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
+											<g>
+												<path fill="currentColor" d="M93.9,46.6C83.6,35,67.5,28.3,49.8,28.3C32,28.6,16,35.2,5.7,46.7l-2.9,3.4l3,3.3C16.2,65,32.3,71.7,49.9,71.7
+													c17.8,0,33.9-6.7,44.1-18.3l3.2-3.4L93.9,46.6z M49.9,66.2c-16,0-30.4-5.9-39.8-16.2c9.3-10,23.7-15.9,39.7-16.1
+													c16,0,30.5,5.9,39.8,16.2C80.4,60.3,65.9,66.2,49.9,66.2z"></path>
+												<circle fill="currentColor" cx="49.8" cy="50" r="7.7"></circle>
+											</g>
+											</svg>
+										</a>
+										{%- endcapture -%}
+									
+									</div>
+
+									{% if i_product.available %}
+										{% if i_product.variants.size > 1 %}
+										<div class="lh-icon add-to-cart-btn hint--top hint-bounce" aria-label="">
+											<a href="{{ i_product.url | within: collection }}"  data-pid="{{i_product.id}}">
+												<svg version="1.1" width="15" height="15" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+													 viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
+												<g>
+													<path fill="currentColor" d="M90.6,2.5h-8c-1.9,0-3.5,1.4-3.7,3.4L77,24.9H11.4c-1.5,0-2.8,0.7-3.8,1.8c-0.9,1.2-1.2,2.7-0.8,4.1l10.7,41.9
+														c0.5,2.1,2.4,3.6,4.6,3.6H73c0.3,0,0.7,0,1-0.1c0.2,0,0.3,0.1,0.5,0.1c0.1,0,0.2,0,0.3,0c1.4,0,2.6-1.1,2.7-2.5l0.2-1.7
+														c0,0,0,0,0,0l4.9-47.1h-0.1L84.2,8h6.4c1.5,0,2.8-1.2,2.8-2.8S92.2,2.5,90.6,2.5z M12.3,30.4h64.1l-4.1,40.4H22.7L12.3,30.4z"></path>
+													<circle fill="currentColor" cx="31.2" cy="89.4" r="8"></circle>
+													<circle fill="currentColor" cx="64.2" cy="89.4" r="8"></circle>
+												</g>
+												</svg>
+											</a>
+										</div>
+										{% else %}
+										<div class="lh-icon add-to-cart-btn hint--top hint-bounce" aria-label="">
+											<a href="/cart/add/{{i_product.variants.first.id}}"  data-pid="{{i_product.id}}">
+												<svg version="1.1" width="15" height="15" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+													 viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
+												<g>
+													<path fill="currentColor" d="M90.6,2.5h-8c-1.9,0-3.5,1.4-3.7,3.4L77,24.9H11.4c-1.5,0-2.8,0.7-3.8,1.8c-0.9,1.2-1.2,2.7-0.8,4.1l10.7,41.9
+														c0.5,2.1,2.4,3.6,4.6,3.6H73c0.3,0,0.7,0,1-0.1c0.2,0,0.3,0.1,0.5,0.1c0.1,0,0.2,0,0.3,0c1.4,0,2.6-1.1,2.7-2.5l0.2-1.7
+														c0,0,0,0,0,0l4.9-47.1h-0.1L84.2,8h6.4c1.5,0,2.8-1.2,2.8-2.8S92.2,2.5,90.6,2.5z M12.3,30.4h64.1l-4.1,40.4H22.7L12.3,30.4z"></path>
+													<circle fill="currentColor" cx="31.2" cy="89.4" r="8"></circle>
+													<circle fill="currentColor" cx="64.2" cy="89.4" r="8"></circle>
+												</g>
+											</svg></a></div>
+										{% endif %}
+									{% else %}
+									<div class="lh-icon add-to-cart-btn hint--top hint-bounce" aria-label="">
+										<a href="{{ i_product.url | within: collection }}" data-pid="{{i_product.id}}">
+											<svg version="1.1" width="15" height="15" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+												 viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
+											<g>
+												<path fill="currentColor" d="M90.6,2.5h-8c-1.9,0-3.5,1.4-3.7,3.4L77,24.9H11.4c-1.5,0-2.8,0.7-3.8,1.8c-0.9,1.2-1.2,2.7-0.8,4.1l10.7,41.9
+													c0.5,2.1,2.4,3.6,4.6,3.6H73c0.3,0,0.7,0,1-0.1c0.2,0,0.3,0.1,0.5,0.1c0.1,0,0.2,0,0.3,0c1.4,0,2.6-1.1,2.7-2.5l0.2-1.7
+													c0,0,0,0,0,0l4.9-47.1h-0.1L84.2,8h6.4c1.5,0,2.8-1.2,2.8-2.8S92.2,2.5,90.6,2.5z M12.3,30.4h64.1l-4.1,40.4H22.7L12.3,30.4z"></path>
+												<circle fill="currentColor" cx="31.2" cy="89.4" r="8"></circle>
+												<circle fill="currentColor" cx="64.2" cy="89.4" r="8"></circle>
+											</g>
+										</svg></a></div>
+									{% endif %}
+								</div>
+							<div class="product-buttons product-buttons--dark">
+								<div class="lh-icon compare-btn hint--bounce hint--top lh-none" aria-label="Compare">
+									<a href="#">
+										<svg height="512pt" viewBox="0 0 512 512" width="512pt" xmlns="http://www.w3.org/2000/svg"><path d="m0 58c0-11.046875 8.953125-20 20-20h56v-18c0-11.046875 8.953125-20 20-20s20 8.953125 20 20v18h376c11.046875 0 20 8.953125 20 20s-8.953125 20-20 20h-376v18c0 11.046875-8.953125 20-20 20s-20-8.953125-20-20v-18h-56c-11.046875 0-20-8.953125-20-20zm492 376h-56v-18c0-11.046875-8.953125-20-20-20s-20 8.953125-20 20v18h-376c-11.046875 0-20 8.953125-20 20s8.953125 20 20 20h376v18c0 11.046875 8.953125 20 20 20s20-8.953125 20-20v-18h56c11.046875 0 20-8.953125 20-20s-8.953125-20-20-20zm0-198h-216v-18c0-11.046875-8.953125-20-20-20s-20 8.953125-20 20v18h-216c-11.046875 0-20 8.953125-20 20s8.953125 20 20 20h216v18c0 11.046875 8.953125 20 20 20s20-8.953125 20-20v-18h216c11.046875 0 20-8.953125 20-20s-8.953125-20-20-20zm0 0"></path></svg>
+									</a>
+								</div>
+							</div>
+							<div class="lh-product-badges">
+								{% if first_variant.available == false %}
+								<span class="lh-sold-out"></span>
+								{% else %}
+									{% if first_variant.price < first_variant.compare_at_price and first_variant.available %}
+										<span class="lh-onsale"></span>
+									{% else  %}
+										{%- for tag in i_product.tags -%}
+											{%- if tag contains 'new' -%}
+												<span class="lh-hot"></span>
+											{%- endif -%}
+										{%- endfor -%}
+									{% endif %}
+								{% endif %}
+							</div>
+						</div>
+						<div class="lh-product-info">
+							<h3 class="lh-product-title">
+								<a href="{{i_product.url | within: collection}}">{{i_product.title}}</a>
+							</h3>
+							 
+							<div class="">
+								<div class="lh-wrap-price">
+									{% if first_variant.compare_at_price > first_variant.price %}
+									<span class="lh-sale">{{first_variant.compare_at_price | money}}</span>
+									{% endif %}
+									<span class="lh-cost">{{first_variant.price | money}}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+			{% endfor %}</div>
+
+	</div>
+</div>
+
+   </include></div>
+        </div>
+      </div>
+    </div>
+  </div>
+ </div>
+
+ 
+  </section><!--/LH-SECTION-->{%schema%}
+{
+    "name": "Product Related",
+    "settings": [
+        {
+            "type": "header",
+            "content": "The section generated by [LayoutHub](https:\/\/www.layouthub.com).",
+            "info": "LayoutHub provides tons of pre-built Layouts and Blocks\/Sections and focus on the simplicity for content editing, to help the merchants easy to build a nice store with drag, sorting and edit content only. "
+        },
+        {
+            "type": "paragraph",
+            "content": "Edit this section [here](https:\/\/app.layouthub.com\/editor?page=page&id=5edfb982189131762a3bb1e2)"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Product Related",
+            "category": "LayoutHub"
+        }
+    ],
+    "locales": {
+        "es": {
+            "dltbuz3ekoi": {
+                "mu8pjv_heading": "Prueba nuestros Kits",
+                "mu8pjv_des": "\u00a1Ideales para consentirte!"
+            }
+        },
+        "en": {
+            "dltbuz3ekoi": {
+                "mu8pjv_heading": "Prueba nuestros Kits",
+                "mu8pjv_des": "\u00a1Ideales para consentirte!"
+            }
+        }
+    }
+}
+{%endschema%}

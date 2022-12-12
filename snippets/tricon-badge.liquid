@@ -1,0 +1,18 @@
+<script> 
+page = '' 
+var shopUrl = "{{ shop.permanent_domain }}" 
+</script> 
+{% if template contains 'product' %} 
+<script> 
+var name = "{{ theme.name }}"
+var id ={{ product.id }} 
+ var vid = {{product.selected_or_first_available_variant.id}}
+page = 'product' 
+</script> 
+{% endif %} 
+{% if template contains 'collection'or template contains 'index' or template contains 'search' %} 
+<script> 
+page = 'collection' 
+</script> 
+{% endif %} 
+<script src="{{ 'tricon-label.js' | asset_url }}" async></script> 
